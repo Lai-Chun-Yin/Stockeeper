@@ -1,0 +1,42 @@
+
+<body>
+{{> navbar-inner}}
+<div class="chat">
+  <div class="chat__sidebar">
+    <h3>People</h3>
+    <div id="users"></div>
+  </div>
+
+  <div class="chat__main">
+    <ol id='messages' class="chat__messages"></ol>
+
+    <div class="chat__footer">
+      <form id="message-form">
+        <input name="message" type="text" placeholder="message" autofocus autocomplete="off"/>
+        <button>Send</button>
+      </form>
+      
+    </div>
+
+  </div>
+</div>
+<!--
+  <script id="message-template" type="text/x-handlebars-template">
+    <li class="message">
+      <div class="message__title">
+        <h4> {{from}}</h4>
+        <span> {{createdAt}}</span>
+      </div>
+      <div class="message__body">
+        <p> {{text}}</p>
+      </div>
+    </li>
+  </script>
+-->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="js/lib/moment.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+  <script src="/js/chat.js"></script>
+</body>
