@@ -8,7 +8,6 @@ const session = require('express-session');
 const setupPassport = require('./utils/passport');
 const bodyParser = require('body-parser');
 const router = require('./router/viewRouter')(express);
-const stockRouter = require('./router/StockRouter');
 const hbs = require('express-handlebars');
 
 const { generateMessage, generateLocationMessage } = require('./utils/message');
@@ -17,7 +16,8 @@ const port = process.env.PORT || 8080;
 var server = http.createServer(app);
 var io = socketIO(server);
 
-// Service Components
+// New Route Methods
+const stockRouter = require('./router/StockRouter');
 const portfolioService = require('./public/js/portfolioService');
 
 app.use(session({
@@ -28,7 +28,7 @@ app.use(bodyParser());
 
 setupPassport(app);
 
-app.engine('hbs', hbs({ extname: 'hbs', defaultLayout: 'main' }));
+app.engine('hbs', hbs({ extname: 'hbs', defaultLayout: 'metro' }));
 app.set('view engine', 'hbs');
 app.use(express.static(publicPath));
 
