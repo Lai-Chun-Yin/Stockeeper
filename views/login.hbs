@@ -1,25 +1,25 @@
-
 <body>
-{{> navbar-outer}}
-<div class="centered-form">
-    <div class="centered-form__form">
+    <div class="auth-form">
         <form action="/login" method="POST">
-            <div class="form-field">
-                <h3>Log in to Chat App</h3>
+            <div class="form-group">
+                <h3>Login</h3>
             </div>
-            <div class="form-field">
-                <label>Email</label>
-                <input type="text" name="username" autofocus/>
+            <div class="form-group">
+                <label>Email address</label>
+                <input type="email" placeholder="Enter email" />
+                <small class="text-muted">We'll never share your email with anyone else.</small>
             </div>
-            <div class="form-field">
+            <div class="form-group">
                 <label>Password</label>
-                <input type="password" name="password"/>
+                <input type="password" placeholder="Enter email" />
             </div>
-            <div class="form-field">
-                <button>Log in</button>
+            <div class="form-group">
+                <input type="checkbox" data-role="checkbox" data-caption="Remember me">
+            </div>
+            <div class="form-group">
+                <button class="button success">Login</button>
+                <input type="button" class="button" value="Cancel">
             </div>
         </form>
-        
     </div>
-</div>
 </body>

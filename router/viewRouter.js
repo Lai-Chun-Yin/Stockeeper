@@ -53,5 +53,19 @@ module.exports = (express) => {
         res.redirect('/');
     });
 
+    router.get('/auth', function(req, res){
+        res.render('auth');
+    });
+    router.get('/home', function(req, res){
+        res.render("home");
+    });
+    router.get('/search', function(req, res){
+        res.render('search');
+    });
+    router.get('/portfolio', function(req, res){
+        res.render("portfolio");
+    });
+
+
     return router;
 };

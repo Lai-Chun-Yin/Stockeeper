@@ -1,0 +1,50 @@
+<aside class="sidebar pos-absolute z-2" data-role="sidebar" data-toggle="#sidebar-toggle-3" id="sb3" data-shift=".shifted-content">
+    <div class="sidebar-header" data-image="images/sb-bg-1.jpg">
+        <div class="avatar">
+            <img data-role="gravatar" data-email="sergey@pimenov.com.ua">
+        </div>
+        <span class="title fg-white">Metro 4 Components Library</span>
+        <span class="subtitle fg-white"> 2018 © Sergey Pimenov</span>
+    </div>
+    <ul class="sidebar-menu">
+        <li>
+            <a href="auth">
+                <span class="mif-home icon"></span>Auth</a>
+        </li>
+        <li>
+            <a href="home">
+                <span class="mif-books icon"></span>Home</a>
+        </li>
+        <li>
+            <a href="search">
+                <span class="mif-files-empty icon"></span>Search</a>
+        </li>
+        <li class="divider"></li>
+        <li>
+            <a href="#">
+                <span class="mif-images icon"></span>Icons</a>
+        </li>
+        <li class="stick-left bg-green">
+            <a class="dropdown-toggle" href="#">
+                <span class="mif-tree icon"></span>Portfolio</a>
+            <ul class="d-menu" data-role="dropdown" style="display: none;">
+                {{!-- <li>
+                    <a href="portfolio">
+                        <span class="mif-vpn-lock icon"></span> Subitem 1</a>
+                </li> --}}
+                <li>
+                    <a href="portfolio_A">Portfolio A</a>
+                </li>
+                <li>
+                    <a href="portfolio_B">Portfolio B</a>
+                </li>
+                <li>
+                    <a href="portfolio_C">Portfolio C</a>
+                </li>
+                <li class="disabled">
+                    <a href="">Portfolio D</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</aside>
