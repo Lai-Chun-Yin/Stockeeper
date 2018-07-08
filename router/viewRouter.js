@@ -45,6 +45,7 @@ module.exports = (express) => {
 
     router.get('/welcome',isLoggedIn, (req, res) => {
         res.render("welcome", { username: req.user.username });
+        console.log(req.session.passport.user);
     });
 
     router.get('/logout', function(req, res){
