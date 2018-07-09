@@ -34,16 +34,9 @@ app.use(express.static(publicPath));
 
 // Old route method
 app.use('/', router);
-app.get('/auth', router);
-app.get('/home', router);
-app.get('/search', router);
 
 // New route method
 let ps = new portfolioService('./portfolioService.js');
-console.log(ps.list());
-app.get('/portfolio', function (req, res) {
-  res.render('portfolio');
-});
 app.use('/portfolio', (new stockRouter('portfolio')).router());
 
 //Socket io - chat room

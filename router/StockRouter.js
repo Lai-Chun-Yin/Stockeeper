@@ -23,6 +23,7 @@ class StockRouter {
         // return this.noteService.list(req.auth.user)
         //     .then((notes) => res.json(notes))
         //     .catch((err) => res.status(500).json(err));
+        // res.render(this.view);
     }
 
     post(req, res) {

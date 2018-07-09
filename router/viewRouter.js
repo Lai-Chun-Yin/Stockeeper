@@ -12,7 +12,7 @@ module.exports = (express) => {
     }
 
 
-    router.get('/', (req, res) => {
+    router.get('/',isLoggedIn, (req, res) => {
         res.render("index");
     });
 
@@ -21,7 +21,7 @@ module.exports = (express) => {
     });
 
     router.post('/login', passport.authenticate('local-login', {
-        successRedirect: '/welcome',
+        successRedirect: '/index',
         failureRedirect: '/login',
         failureFlash: true
     }));
@@ -31,7 +31,7 @@ module.exports = (express) => {
     });
 
     router.post('/signup',passport.authenticate('local-signup', {
-        successRedirect: '/welcome',
+        successRedirect: '/index',
         failureRedirect: '/signup',
         failureFlash: true
     }));
@@ -43,8 +43,8 @@ module.exports = (express) => {
         failureRedirect: "/"
     }),(req,res)=>res.redirect('/welcome'));
 
-    router.get('/welcome',isLoggedIn, (req, res) => {
-        res.render("welcome", { username: req.user.username });
+    router.get('/index',isLoggedIn, (req, res) => {
+        res.render("index", { username: req.user.username });
         console.log(req.session.passport.user);
     });
 
@@ -53,19 +53,16 @@ module.exports = (express) => {
         res.redirect('/');
     });
 
-    router.get('/auth', function(req, res){
-        res.render('auth');
-    });
     router.get('/home', function(req, res){
         res.render("home");
     });
     router.get('/search', function(req, res){
         res.render('search');
     });
-    router.get('/portfolio', function(req, res){
-        res.render("portfolio");
-    });
 
+    router.get('/portfolio', function(req,res){
+        res.render('portfolio')
+    })
 
     return router;
 };
