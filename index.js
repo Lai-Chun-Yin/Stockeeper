@@ -34,7 +34,6 @@ app.use(express.static(publicPath));
 
 // Old route method
 app.use('/', router);
-app.get('/auth', router);
 app.get('/home', router);
 app.get('/search', router);
 
