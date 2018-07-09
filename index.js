@@ -38,6 +38,9 @@ app.use('/', router);
 // New route method
 let ps = new portfolioService('./portfolioService.js');
 app.use('/portfolio', (new stockRouter('portfolio')).router());
+app.get('/portfolio', function(res, req){
+  res.render('portfolio');
+})
 
 //Socket io - chat room
 io.on('connection', (socket) => {
