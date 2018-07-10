@@ -7,11 +7,13 @@ module.exports = class PortfolioRouter {
 
     router(){
         let router = express.Router();
-        router.get('/portfolio',this.getPortfolios.bind(this));
-
+        router.get('/',this.getPortfolios.bind(this));
+        return router;
     }
 
     getPortfolios(req,res){
-        return this.portfolioService
+        return this.portfolioService.listPortfolios(req.session.passport.user)
+        .then((results)=>res.json(results))
+        .catch((err) => res.status(500).json(err));
     }
 }

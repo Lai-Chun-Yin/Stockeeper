@@ -2,6 +2,8 @@ const path = require('path');
 const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
+const knexConfig = require('./knexfile').development;
+const knex = require('knex')(knexConfig);
 
 const app = express();
 const session = require('express-session');
@@ -18,7 +20,8 @@ var io = socketIO(server);
 
 // New Route Methods
 const stockRouter = require('./router/StockRouter');
-const portfolioService = require('./public/js/portfolioService');
+const PortfolioService = require('./utils/PortfolioService');
+const PortfolioRouter = require('./router/PortfolioRouter');
 
 app.use(session({
   secret: 'supersecret'
@@ -36,11 +39,8 @@ app.use(express.static(publicPath));
 app.use('/', router);
 
 // New route method
-let ps = new portfolioService('./portfolioService.js');
-app.use('/portfolio', (new stockRouter('portfolio')).router());
-app.get('/portfolio', function(res, req){
-  res.render('portfolio');
-})
+let ps = new PortfolioService(knex);
+app.use('/api/portfolio', (new PortfolioRouter(ps)).router());
 
 //Socket io - chat room
 io.on('connection', (socket) => {
