@@ -61,7 +61,7 @@ module.exports = (express) => {
     });
 
     router.get('/portfolio', function(req,res){
-        res.render('portfolio')
+        res.render('portfolio');
     })
 
     return router;

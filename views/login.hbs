@@ -1,25 +1,33 @@
 <body>
-    <div class="auth-form">
-        <form action="/login" method="POST">
-            <div class="form-group">
-                <h3>Login</h3>
-            </div>
-            <div class="form-group">
-                <label>Email address</label>
-                <input type="email" name="username" placeholder="Enter email" />
-                <small class="text-muted">We'll never share your email with anyone else.</small>
-            </div>
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" name="password" placeholder="Enter password" />
-            </div>
-            <div class="form-group">
-                <input type="checkbox" data-role="checkbox" data-caption="Remember me">
-            </div>
-            <div class="form-group">
-                <button class="button success">Login</button>
-                <input type="button" class="button" value="Cancel">
-            </div>
-        </form>
+    <div class="shifted-content h-100 p-ab">
+        <div class="app-bar pos-absolute bg-red z-1" data-role="appbar">
+            <button class="app-bar-item c-pointer" id="sidebar-toggle-3">
+                <span class="mif-menu fg-white"></span>
+            </button>
+        </div>
+
+        <div class="auth-form">
+            <form action="/login" method="POST">
+                <div class="form-group">
+                    <h3>Login</h3>
+                </div>
+                <div class="form-group">
+                    <label>Email address</label>
+                    <input type="email" name="username" placeholder="Enter email" />
+                    <small class="text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" name="password" placeholder="Enter password" />
+                </div>
+                <div class="form-group">
+                    <input type="checkbox" data-role="checkbox" data-caption="Remember me">
+                </div>
+                <div class="form-group">
+                    <button class="button success">Login</button>
+                    <input type="button" class="button" value="Cancel">
+                </div>
+            </form>
+        </div>
     </div>
 </body>

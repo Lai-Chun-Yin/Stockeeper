@@ -4,7 +4,7 @@ const FacebookStrategy = require('passport-facebook').Strategy;
 const bcrypt = require('./bcrypt');
 require('dotenv').config();
 const knex = require('knex')({
-    client: 'postgresql',
+    client: 'postgres',
     connection: {
         database: process.env.DB_NAME,
         user: process.env.DB_USERNAME,

@@ -19,39 +19,52 @@
             </p>
         </div>
 
-        <div class="p-4">
-            <table class="table striped table-border mt-4" data-role="table" data-cls-table-top="row flex-nowrap" data-cls-search="cell-md-8"
-                data-cls-rows-count="cell-md-4" data-rows="5" data-rows-steps="5, 10">
+        <div class="container-fluid">
+            <table class="table striped table-border mt-4" 
+                data-role="table" 
+                data-cls-table-top="row flex-nowrap" 
+                data-cls-search="cell-md-8"
+                data-cls-rows-count="cell-md-4" 
+                data-rows="5" 
+                data-rows-steps="5, 10"
+                >
                 <thead>
                     <tr>
-                        <th class="sortable-column sort-asc">Name</th>
-                        <th class="sortable-column">Office</th>
-                        <th class="sortable-column" data-format="number">Age</th>
-                        <th class="sortable-column" data-format="date">Start date</th>
-                        <th class="sortable-column" data-format="money">Salary</th>
+                        <th class="sortable-column sort-asc">Symbol</th>
+                        <th class="sortable-column sort-asc">Company</th>
+                        <th class="sortable-column" data-format="money">Current Price</th>
+                        <th class="sortable-column" data-format="money">Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Tiger Nixon</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>2011/04/25</td>
-                        <td>$320,800</td>
+                        <td>HKG:0005</td>
+                        <td>HSBC Holdings plc</td>
+                        <td>$73.90</td>
+                        <td>$+0.55(0.75%)</td>
                     </tr>
-                    ...
-                </tbody>
-                <tfoot>
                     <tr>
-                        <th>Name</th>
-                        <th>Office</th>
-                        <th>Age</th>
-                        <th>Start date</th>
-                        <th>Salary</th>
+                        <td>HKG:0700</td>
+                        <td>Tencent Holdings Ltd</td>
+                        <td>$386.80</td>
+                        <td>$−9.20(2.32%)</td>
                     </tr>
-                </tfoot>
+                    <tr>
+                        <td>HKG:2318</td>
+                        <td>PING AN INSURAN</td>
+                        <td>$71.10</td>
+                        <td>+0.15(0.21%)</td>
+                    </tr>
+                </tbody>
+                {{!-- <tfoot>
+                    <tr>
+                        <th>Symbol</th>
+                        <th>Company</th>
+                        <th>Current Price</th>
+                        <th>Status</th>
+                    </tr>
+                </tfoot> --}}
             </table>
         </div>
-
     </div>
 </body>
