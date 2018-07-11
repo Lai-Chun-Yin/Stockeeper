@@ -1,17 +1,14 @@
 const express = require('express');
 
 class StockRouter {
-    // constructor(noteService) {
-    //     this.noteService = noteService;
-    // }
-    constructor(view) {
-        this.view = view;
+    constructor(stockService) {
+        this.stockService = stockService;
     }
 
     router() {
         let router = express.Router();
 
-        router.get('/', this.get.bind(this));
+        router.get('/:symbol', this.get.bind(this));
         router.post('/', this.post.bind(this));
         router.put('/:id', this.put.bind(this));
         router.delete('/:id', this.delete.bind(this));
@@ -19,11 +16,10 @@ class StockRouter {
         return router;
     }
 
-    get(req, res) {
-        // return this.noteService.list(req.auth.user)
+    getStockDetails(req, res) {
+        return this.stockService.getHistorical(req.auth.user)
         //     .then((notes) => res.json(notes))
         //     .catch((err) => res.status(500).json(err));
-        // res.render(this.view);
     }
 
     post(req, res) {
