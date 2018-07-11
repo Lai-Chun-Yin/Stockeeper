@@ -24,7 +24,7 @@ class StockRouter {
             
             objOfResults = {
                 Historical: arrayOfResults[0],
-                Current: arrayOfResults[1][0]
+                Current: arrayOfResults[1].price
             }
             res.json(objOfResults);
         })

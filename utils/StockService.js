@@ -1,8 +1,7 @@
 const yahooFinance = require('yahoo-finance');
 const moment = require('moment');
 const knex = require('knex');
-const PortfolioService = require('./PortfolioService');
-let portfolioService = new PortfolioService(knex);
+
 
 module.exports = class StockService{
     constructor(knex){
@@ -27,6 +26,14 @@ module.exports = class StockService{
     }
 
     getCurrentPrice(stockSymbol){
-        return portfolioService.updateStockPrice(stockSymbol);
+        return new Promise((resolve, reject) => {
+            yahooFinance.quote({
+                symbol: stockSymbol,
+                modules: ['price']
+            }, function (err, quotes) {
+                if (err) { reject(err); }
+                resolve(quotes);
+            });
+        });
     }
 }

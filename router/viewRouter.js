@@ -62,7 +62,11 @@ module.exports = (express) => {
 
     router.get('/portfolio', function(req,res){
         res.render('portfolio');
-    })
+    });
+
+    router.get('/stock/:symbol',function(req,res){
+        res.render('stock',{symbol:req.params.symbol})
+    });
 
     return router;
 };
