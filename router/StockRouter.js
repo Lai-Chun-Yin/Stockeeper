@@ -8,18 +8,27 @@ class StockRouter {
     router() {
         let router = express.Router();
 
-        router.get('/:symbol', this.get.bind(this));
-        router.post('/', this.post.bind(this));
-        router.put('/:id', this.put.bind(this));
-        router.delete('/:id', this.delete.bind(this));
+        router.get('/:symbol', this.getStockDetails.bind(this));
+        // router.post('/', this.post.bind(this));
+        // router.put('/:id', this.put.bind(this));
+        // router.delete('/:id', this.delete.bind(this));
 
         return router;
     }
 
     getStockDetails(req, res) {
-        return this.stockService.getHistorical(req.auth.user)
-        //     .then((notes) => res.json(notes))
-        //     .catch((err) => res.status(500).json(err));
+        let objOfResults;
+        return Promise.all([this.stockService.getHistorical(req.params.symbol),
+        this.stockService.getCurrentPrice(req.params.symbol)])
+        .then((arrayOfResults)=>{
+            
+            objOfResults = {
+                Historical: arrayOfResults[0],
+                Current: arrayOfResults[1][0]
+            }
+            res.json(objOfResults);
+        })
+        .catch((err) => res.status(500).json(err));
     }
 
     post(req, res) {
