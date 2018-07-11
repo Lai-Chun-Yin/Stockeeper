@@ -36,7 +36,7 @@ module.exports = class PortfolioRouter {
             return this.portfolioService.updateStockPrice(stockList);
             
         }).then((listOfPrice)=>{
-            console.log(listOfPrice);
+            
             for (let i=0;i<objOfResults.positions.length;i++){
                 objOfResults.positions[i].current_price = listOfPrice[i];
             }
