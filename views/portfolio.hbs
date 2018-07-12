@@ -1,15 +1,40 @@
-<body>
-    {{> metrosidebar}}
-    <div class="shifted-content h-100 p-ab">
-        {{> metroappbar}}
+ {{> metrosidebar}}
+<div class="shifted-content h-100 p-ab">
+    {{> metroappbar}}
 
-        <div class="h-100 p-4">
-            <p class="h1">Portfolio Summary</p>
-            <p class="h2">What is Lorem Ipsum?</p>
-            <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s ...
-            </p>
+    <div class="h-100 p-4">
+        <p class="h1">Portfolio Summary</p>
+        <table class="table" id="portfolio-summary">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Modify</th>
+                    <th>Remove</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>
+        </table>
+        <p class="h2">Portfolio Details</p>
+        {{!-- <ul class="bottom" data-role="tabs">
+            <li>Positions</li>
+            <li>Transactions</li>
+            <li>Graphs</li>
+        </ul> --}}
+        <div>
+            <button id="btn-positions">Positions</button>
+            <button id="btn-transactions">Transactions</button>
+            <button id="btn-graphs">Graphs</button>
         </div>
+        <table class="table" id="portfolio-details">
+            
+        </table>
     </div>
-</body>
+</div>
+{{> metrojs}}
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+<script src="js/portfolioService.js"></script>
