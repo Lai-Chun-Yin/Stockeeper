@@ -35,6 +35,7 @@ setupPassport(app);
 app.engine('hbs', hbs({ extname: 'hbs', defaultLayout: 'metro' }));
 app.set('view engine', 'hbs');
 app.use(express.static(publicPath));
+app.locals.siteTitle = 'Stockeeper';
 
 // Old route method
 app.use('/', router);

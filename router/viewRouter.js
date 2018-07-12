@@ -17,7 +17,10 @@ module.exports = (express) => {
     });
 
     router.get('/login', (req, res) => {
-        res.render("login");
+        res.render('login', {
+            pageTitle: 'Login',
+            pageID: 'login'
+        });
     });
 
     router.post('/login', passport.authenticate('local-login', {
@@ -27,7 +30,10 @@ module.exports = (express) => {
     }));
 
     router.get('/signup', (req,res)=>{
-        res.render("signup");
+        res.render('signup', {
+            pageTitle: 'Signup',
+            pageID: 'signup'
+        });
     });
 
     router.post('/signup',passport.authenticate('local-signup', {
@@ -54,14 +60,23 @@ module.exports = (express) => {
     });
 
     router.get('/home', function(req, res){
-        res.render("home");
+        res.render('home', {
+            pageTitle: 'Home',
+            pageID: 'home'
+        });
     });
     router.get('/search', function(req, res){
-        res.render('search');
+        res.render('search', {
+            pageTitle: 'Search',
+            pageID: 'search'
+        });
     });
 
     router.get('/portfolio', function(req,res){
-        res.render('portfolio');
+        res.render('portfolio', {
+            pageTitle: 'Portfolio',
+            pageID: 'portfolio'
+          });
     });
 
     router.get('/stock/:symbol',function(req,res){

@@ -5,3 +5,22 @@
     padding-top: 150px;
     margin: auto;
   }
+
+  ul .item{
+    background-color: rgba(241, 128, 128, 0.479);
+    color: white;
+    display: flex;
+    flex-direction: row;
+  }
+
+  ul .item .subItem .symbol{
+    background-color: rgb(187, 40, 14);
+  }
+
+  ul .item .subItem .name{
+    background-color: rgb(243, 130, 77);
+  }
+
+  ul .item .subItem .price{
+    background-color: rgb(255, 223, 155);
+  }
