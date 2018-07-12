@@ -34,6 +34,7 @@ setupPassport(app);
 app.engine('hbs', hbs({ extname: 'hbs', defaultLayout: 'metro' }));
 app.set('view engine', 'hbs');
 app.use(express.static(publicPath));
+app.locals.siteTitle = 'Stockeeper';
 
 // Old route method
 app.use('/', router);
@@ -41,6 +42,7 @@ app.use('/', router);
 // New route method
 let ps = new PortfolioService(knex);
 app.use('/api/portfolio', (new PortfolioRouter(ps)).router());
+// console.log(ps.listPortfolios(1));
 
 //Socket io - chat room
 io.on('connection', (socket) => {
