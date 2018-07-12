@@ -18,7 +18,9 @@ module.exports = class PortfolioService {
     }
 
     getStockPositions(portfolioId) {
-        let query = this.knex.select("asset_symbol", this.knex.raw('SUM(purchase_quantity)')).from('transactions')
+        let query = this.knex.select("asset_symbol", this.knex.raw('SUM(purchase_quantity)'),
+                    this.knex.raw('SUM(purchase_quantity*purchase_price) as value'))
+        .from('transactions')
             .where("portfolio_id", portfolioId).groupBy('asset_symbol');
         return query;
     }

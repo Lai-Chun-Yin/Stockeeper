@@ -19,7 +19,8 @@ var server = http.createServer(app);
 var io = socketIO(server);
 
 // New Route Methods
-const stockRouter = require('./router/StockRouter');
+const StockRouter = require('./router/StockRouter');
+const StockService = require('./utils/StockService');
 const PortfolioService = require('./utils/PortfolioService');
 const PortfolioRouter = require('./router/PortfolioRouter');
 
@@ -41,8 +42,9 @@ app.use('/', router);
 
 // New route method
 let ps = new PortfolioService(knex);
+let ss = new StockService(knex);
 app.use('/api/portfolio', (new PortfolioRouter(ps)).router());
-// console.log(ps.listPortfolios(1));
+app.use('/api/stock',(new StockRouter(ss)).router());
 
 //Socket io - chat room
 io.on('connection', (socket) => {
