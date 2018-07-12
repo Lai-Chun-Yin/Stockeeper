@@ -29,6 +29,7 @@ let transactionHeadingHtml = `
         <th>Trade volume</th>
         <th>Buy/Sell</th>
         <th>Trade time</th>
+        <th>Modify/Remove</th>
     </tr>
 </thead><tbody></tbody>
 `;
@@ -47,6 +48,8 @@ let transactionTemplate = Handlebars.compile(`
 <td>{{volume}}</td>
 <td>{{buySell}}</td>
 <td>{{tradeTime}}</td>
+<td><button class="btn-modify-trans">Modify</button>
+<button class="btn-remove-trans">Remove</button></td>
 </tr>`);
 
 $('#btn-positions').on('click',function(){

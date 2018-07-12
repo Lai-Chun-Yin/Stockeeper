@@ -12,7 +12,7 @@ module.exports = class PortfolioService {
     }
 
     listTransinP(portfolioId) {
-        let query = this.knex.select("asset_symbol", "purchase_price", "purchase_quantity", "buy_sell", "transaction_time")
+        let query = this.knex.select("id","asset_symbol", "purchase_price", "purchase_quantity", "buy_sell", "transaction_time")
             .from("transactions").where("portfolio_id", portfolioId);
         return query;
     }
