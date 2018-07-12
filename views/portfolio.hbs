@@ -1,4 +1,4 @@
-<body>
+<body id="{{{pageID}}}">
     {{> metrosidebar}}
     <div class="shifted-content h-100 p-ab">
         <div class="app-bar pos-absolute bg-red z-1" data-role="appbar">
@@ -15,5 +15,85 @@
                 text ever since the 1500s ...
             </p>
         </div>
+
+        {{!-- Portfolio Table --}}
+        {{!-- <div class="portfolioTable">
+            <ul id="list" data-role="listview" data-view="content" data-select-node="true">
+                <li>
+                    <div class="d-flex flex-row">
+                        <div class="p-2 bg-light">HKG:0700</div>
+                        <div class="p-2 bg-light">Tencent Holdings Ltd</div>
+                        <div class="p-2 bg-light">$386.80</div>
+                        <div class="p-2 bg-light">$−9.20(2.32%)</div>
+                    </div>
+                </li>
+            </ul>
+        </div> --}}
+        <div class="container-fluid">
+            <table class="table striped table-border mt-4" 
+                data-role="table" 
+                data-cls-table-top="row flex-nowrap" 
+                data-cls-search="cell-md-8"
+                data-cls-rows-count="cell-sm-3 cell-md-4" 
+                data-rows="5" 
+                data-rows-steps="5, 10"
+                >
+                <thead>
+                    <tr>
+                        <th class="sortable-column sort-asc">Symbol</th>
+                        <th class="sortable-column sort-asc">Company</th>
+                        <th class="sortable-column" data-format="money">Current Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{!-- <tr>
+                        <td>HKG:0005</td>
+                        <td>HSBC Holdings plc</td>
+                        <td>$73.90</td>
+                        <td>$+0.55(0.75%)</td>
+                    </tr> --}}
+                </tbody>
+            </table>
+        </div>
     </div>
+    {{> metrojs}}
+    <script>
+        $(document).ready(function (data) {
+            var output = '';
+            $.getJSON('https://jsonplaceholder.typicode.com/users', function (data) {
+                $.each(data, function (key, item) {
+                    output += '<tr>';
+                    output += '<td>' + item.name + '</td>';
+                    output += '<td>' + item.username + '</td>';
+                    output += '<td>' + item.email + '</td>';
+                    output += '</tr>';
+                });
+                $('tbody').html(output);
+            });
+        })
+    </script>
+    {{!-- <script>
+        $(document).ready(function (data) {
+            var output = '';
+            $.getJSON('https://jsonplaceholder.typicode.com/users', function (data) {
+                $.each(data, function (key, item) {
+                    output += '<li class="item p-4">';
+                    output += '<div class="subItem">';
+                    output += '<h5 class="symbol">' + item.name + '</h5>';
+                    output += '</div>';
+                    output += '<div class="subItem">';
+                    output += '<p class="name">' + item.username + '</p>';
+                    output += '</div>';
+                    output += '<div class="subItem">';
+                    output += '<p class="price">' + item.email + '</p>';
+                    output += '</div>';
+                    output += '<div class="subItem">';
+                    output += '<button><i id="' + key + '"></i></button>';
+                    output += '</div>';
+                    output += '</li>';
+                });
+                $('#list').html(output);
+            });
+        })
+    </script> --}}
 </body>

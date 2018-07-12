@@ -1,0 +1,15 @@
+<script>
+    $(document).ready(function (data) {
+        var output = '';
+        $.getJSON('https://jsonplaceholder.typicode.com/users', function (data) {
+            $.each(data, function (key, item) {
+                output += '<tr>';
+                output += '<td>' + item.name + '</td>';
+                output += '<td>' + item.username + '</td>';
+                output += '<td>' + item.email + '</td>';
+                output += '</tr>';
+            });
+            $('tbody').html(output);
+        });
+    })
+</script>
