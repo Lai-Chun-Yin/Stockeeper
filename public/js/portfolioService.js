@@ -60,6 +60,9 @@ $('#btn-transactions').on('click',function(){
     $('#portfolio-details').empty();
     renderPortfolioTransactions();
 });
+$('#portfolio-details').on('click','.btn-modify-trans',function(){
+    
+})
 
 $(function () {
 

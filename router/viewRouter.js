@@ -83,5 +83,9 @@ module.exports = (express) => {
         res.render('stock',{symbol:req.params.symbol})
     });
 
+    router.get('/addTran/:symbol',function(req,res){
+        res.render('addTran',{symbol:req.params.symbol})
+    });
+
     return router;
 };
