@@ -14,16 +14,18 @@ module.exports = class TransactionService {
     postTran(transaction){
         let buyOrSell;
         let tradePrice = +transaction["trade-price"];
-        let volume = +transaction.volume;
+        let volume;
         let tradeTime = moment(transaction["trade-date"]).toDate();
-        switch (transaction.trade_type) {
+        switch (transaction["trade-type"]) {
             case "Buy":
-                buyOrSell = true;
+                buyOrSell = 1;
                 break;
             case "Sell":
-                buyOrSell = false;
+                buyOrSell = 0;
                 break;
         }
+        if(buyOrSell===1){volume = +transaction.volume;}
+        else{volume = -transaction.volume;}
         let addTran = this.knex('transactions').insert({
             asset_symbol : transaction.symbol,
             portfolio_id : transaction.portfolio,
@@ -56,5 +58,16 @@ module.exports = class TransactionService {
     checkAsset(transaction){
         let checkAsset = this.knex.select('asset_symbol').from('assets').where('asset_symbol',transaction.symbol);
         return checkAsset;
+    }
+
+    getPortfolioId(tid) {
+        let query = this.knex.select("portfolio_id").from('transactions').where('id',tid);
+        return query;
+    }
+
+    listTransinP(portfolioId) {
+        let query = this.knex.select("id","asset_symbol", "purchase_price", "purchase_quantity", "buy_sell", "transaction_time")
+            .from("transactions").where("portfolio_id", portfolioId);
+        return query;
     }
 }

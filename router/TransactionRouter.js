@@ -40,6 +40,15 @@ module.exports = class TransactionRouter {
     }
 
     deleteTran(req,res){
-        return this.transactionService.deleteTran(req.params.tid);
+        let portfolioId;
+        this.transactionService.getPortfolioId(req.params.tid)
+        .then((result)=>{
+            portfolioId = result[0].portfolio_id;
+            return this.transactionService.deleteTran(req.params.tid)
+        }).then(()=>{
+            return this.transactionService.listTransinP(portfolioId)
+        }).then((transactions)=>{
+            res.json(transactions);
+        }).catch((err) => res.status(500).json(err));
     }
 }

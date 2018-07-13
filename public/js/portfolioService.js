@@ -42,7 +42,7 @@ let positionTemplate = Handlebars.compile(`
 <td>{{pl}}</td>
 </tr>`);
 let transactionTemplate = Handlebars.compile(`
-<tr>
+<tr data-id="{{id}}">
 <td>{{symbol}}</td>
 <td>{{tradePrice}}</td>
 <td>{{volume}}</td>
@@ -62,7 +62,15 @@ $('#btn-transactions').on('click',function(){
 });
 $('#portfolio-details').on('click','.btn-modify-trans',function(){
     
-})
+});
+$('#portfolio-details').on('click','.btn-remove-trans',function(){
+    let tranId = $(event.target).parent().parent().attr("data-id");
+    axios.delete(`/api/transaction/${tranId}`).then(function(newTransactions){
+        transactions = newTransactions.data;
+        $('#portfolio-details').empty();
+        renderPortfolioTransactions();
+    });
+});
 
 $(function () {
 
@@ -125,6 +133,7 @@ function renderPortfolioTransactions(){
         if(transaction.buy_sell){buySellSymbol="Buy";}
         else{buySellSymbol="Sell";}
         let html = transactionTemplate({
+            "id":transaction.id,
             "symbol":transaction.asset_symbol,
             "tradePrice":transaction.purchase_price,
             "volume":transaction.purchase_quantity,
