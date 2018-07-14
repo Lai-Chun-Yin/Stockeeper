@@ -60,4 +60,24 @@ module.exports = class PortfolioService {
             });
         });
     }
+
+    addPortfolio(userId,portfolioName){
+        return this.knex('portfolios').insert({
+            user_id: userId,
+            name: portfolioName
+        });
+    }
+
+    putPortfolio(portfolioId,portfolioName){
+        let action = this.knex('portfolios').where('id',portfolioId)
+        .update({
+            name: portfolioName
+        });
+        return action;
+    }
+
+    deletePortfolio(portfolioId){
+        let action = this.knex('portfolios').where('id',portfolioId).del();
+        return action;
+    }
 }

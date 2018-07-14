@@ -9,6 +9,9 @@ module.exports = class PortfolioRouter {
         let router = express.Router();
         router.get('/',this.getPortfolios.bind(this));
         router.get('/:id',this.getTransactions.bind(this));
+        router.post('/',this.addPortfolio.bind(this));
+        router.put('/:id',this.putPortfolio.bind(this));
+        router.delete('/:id',this.deletePortfolio.bind(this));
         return router;
     }
 
@@ -45,4 +48,24 @@ module.exports = class PortfolioRouter {
         .catch((err)=> res.status(500).json(err));
     }
 
+    addPortfolio(req,res){
+        return this.portfolioService.addPortfolio(req.session.passport.user,req.body.name)
+        .then(()=>{return this.portfolioService.listPortfolios(req.session.passport.user)})
+        .then((results)=>res.json(results))
+        .catch((err) => res.status(500).json(err));
+    }
+
+    putPortfolio(req,res){
+        return this.portfolioService.putPortfolio(req.params.id,req.body.name)
+        .then(()=>{return this.portfolioService.listPortfolios(req.session.passport.user)})
+        .then((results)=>res.json(results))
+        .catch((err) => res.status(500).json(err));
+    }
+
+    deletePortfolio(req,res){
+        return this.portfolioService.deletePortfolio(req.params.id)
+        .then(()=>{return this.portfolioService.listPortfolios(req.session.passport.user)})
+        .then((results)=>res.json(results))
+        .catch((err) => res.status(500).json(err));
+    }
 }
