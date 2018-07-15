@@ -62,25 +62,28 @@ let tranModifyTemplate = Handlebars.compile(`
 <input type="text" class="tranRow-symbol">{{symbol}}</input>
 `);
 
-$('#portfolio-summary').on('click','.btn-select-portfolio',function(){
+$('#portfolio-summary').on('click', '.btn-select-portfolio', function () {
     let portfolio_id = $(event.target).parent().parent().attr("data-id");
     portfolioId = portfolio_id;
+    $(event.target).parent().parent().siblings('tr').css({
+        "color":"black"
+    });
     $(event.target).parent().parent().css({
         "color": "blue"
     });
     fetchPortfolioData();
 });
-$('#btn-add-portfolio').on('click',function(){
+$('#btn-add-portfolio').on('click', function () {
     let trHtml = '<tr data-id="add"></tr>';
     let inputHtml = portfolioInputTemplate({
-        id:"",
+        id: "",
         name: ""
     });
     $('#portfolio-summary > tbody').append(trHtml);
     $('#portfolio-summary > tbody tr:last-child').append(inputHtml);
     // trHtml.appendTo($('#portfolio-summary > tbody')).append(inputHtml);
 });
-$('#portfolio-summary').on('click','.btn-modify-portfolio',function(){
+$('#portfolio-summary').on('click', '.btn-modify-portfolio', function () {
     let portfolio_id = $(event.target).parent().parent().attr("data-id");
     let portfolio_name = $(event.target).parent().siblings('td:eq(1)').val();
     let inputHtml = portfolioInputTemplate({
@@ -90,50 +93,50 @@ $('#portfolio-summary').on('click','.btn-modify-portfolio',function(){
     let tr = $(event.target).parent().parent().empty();
     tr.append(inputHtml);
 });
-$('#portfolio-summary').on('click','.btn-input-portfolio',function(){
+$('#portfolio-summary').on('click', '.btn-input-portfolio', function () {
     let portfolio_id = $(event.target).parent().parent().attr("data-id");
     let portfolio_name = $(event.target).parent().siblings('.portRow-name')
-    .children('input').val();
+        .children('input').val();
     console.log(portfolio_name);
-    if(portfolio_id==="add"){
-        axios.post('/api/portfolio/',{name: portfolio_name}).then((newList)=>{
+    if (portfolio_id === "add") {
+        axios.post('/api/portfolio/', { name: portfolio_name }).then((newList) => {
             portfolios = newList.data;
             $('#portfolio-summary > tbody').empty();
             renderPortfolios();
         });
-    }else{
-        axios.put(`/api/portfolio/${portfolio_id}`,{name: portfolio_name})
-        .then((newList)=>{
-            portfolios = newList.data;
-            $('#portfolio-summary > tbody').empty();
-            renderPortfolios();
-        });
+    } else {
+        axios.put(`/api/portfolio/${portfolio_id}`, { name: portfolio_name })
+            .then((newList) => {
+                portfolios = newList.data;
+                $('#portfolio-summary > tbody').empty();
+                renderPortfolios();
+            });
     }
 });
-$('#portfolio-summary').on('click','.btn-remove-portfolio',function(){
-    let portfolio_id = $(event.target).parent().parent().attr("data-id"); 
-    axios.delete(`/api/portfolio/${portfolio_id}`).then(function(newList){
+$('#portfolio-summary').on('click', '.btn-remove-portfolio', function () {
+    let portfolio_id = $(event.target).parent().parent().attr("data-id");
+    axios.delete(`/api/portfolio/${portfolio_id}`).then(function (newList) {
         portfolios = newList.data;
         $('#portfolio-summary > tbody').empty();
         renderPortfolios();
     });
 });
-$('#btn-positions').on('click',function(){
+$('#btn-positions').on('click', function () {
     $('#portfolio-details').empty();
     renderPortfolioPositions();
 });
-$('#btn-transactions').on('click',function(){
+$('#btn-transactions').on('click', function () {
     $('#portfolio-details').empty();
     renderPortfolioTransactions();
 });
-$('#portfolio-details').on('click','.btn-modify-trans',function(){
+$('#portfolio-details').on('click', '.btn-modify-trans', function () {
     let tranRow = $(event.target).parent().parent();
     tranRow.empty();
-    
+
 });
-$('#portfolio-details').on('click','.btn-remove-trans',function(){
+$('#portfolio-details').on('click', '.btn-remove-trans', function () {
     let tranId = $(event.target).parent().parent().attr("data-id");
-    axios.delete(`/api/transaction/${tranId}`).then(function(newTransactions){
+    axios.delete(`/api/transaction/${tranId}`).then(function (newTransactions) {
         transactions = newTransactions.data;
         $('#portfolio-details').empty();
         renderPortfolioTransactions();
@@ -144,69 +147,79 @@ $(function () {
 
     axios.get("/api/portfolio/").then(function (results) {
         portfolios = results.data;
-        
+
         renderPortfolios();
     }).catch(function (err) { console.log(err); });
-    
+
 });
 
-function fetchPortfolioData(){
+function fetchPortfolioData() {
+    $('#portfolio-details').empty();
+    $('#btn-positions').attr('disabled','disabled');
+    $('#btn-transactions').attr('disabled','disabled');
+    $('#btn-graphs').attr('disabled','disabled');
     axios.get(`/api/portfolio/${portfolioId}`).then(function (results) {
         //data cleaning
-        transactions = results.data.transactions.map(function(transaction){
+        transactions = results.data.transactions.map(function (transaction) {
             let cleanTransaction = transaction;
             cleanTransaction.purchase_price = +transaction.purchase_price;
             return cleanTransaction;
         });
-        positions = results.data.positions.map(function(position){
+        positions = results.data.positions.map(function (position) {
             let cleanPosition = position;
             cleanPosition.sum = +position.sum;
-            cleanPosition.value= +position.value;
+            cleanPosition.value = +position.value;
             return cleanPosition;
         });
-        positions = positions.filter((position)=>{
+        positions = positions.filter((position) => {
             return position.sum >= 0;
         });
-
+        $('#btn-positions').removeAttr('disabled');
+        $('#btn-transactions').removeAttr('disabled');
+        $('#btn-graphs').removeAttr('disabled');
         renderPortfolioPositions();
-    }).catch(function (err) { console.log(err); });
+    }).catch(function (err) { 
+        $('#btn-positions').removeAttr('disabled');
+        $('#btn-transactions').removeAttr('disabled');
+        $('#btn-graphs').removeAttr('disabled');
+        console.log(err); });
 }
 function renderPortfolios() {
-    portfolios.forEach(function(portfolio){
+    portfolios.forEach(function (portfolio) {
         let html = portfolioTemplate({
-            "id":portfolio.id,
-            "name":portfolio.name,
+            "id": portfolio.id,
+            "name": portfolio.name,
         });
         $('#portfolio-summary > tbody').append(html);
     });
 }
 
-function renderPortfolioPositions(){
+function renderPortfolioPositions() {
     $('#portfolio-details').append(positionHeadingHtml);
-    positions.forEach(function(position){
+    positions.forEach(function (position) {
         let html = positionTemplate({
-            "symbol":position.asset_symbol,
-            "currentPrice":position.current_price,
-            "volume":position.sum,
-            "mktValue":position.current_price*position.sum,
-            "pl":position.current_price*position.sum-position.value
+            "symbol": position.asset_symbol,
+            "currentPrice": position.current_price,
+            "volume": position.sum,
+            "mktValue": position.current_price * position.sum,
+            "pl": position.current_price * position.sum - position.value
         });
         $('#portfolio-details > tbody').append(html);
     });
 }
 
-function renderPortfolioTransactions(){
+function renderPortfolioTransactions() {
     $('#portfolio-details').append(transactionHeadingHtml);
-    transactions.forEach(function(transaction){
+    transactions.forEach(function (transaction) {
         let buySellSymbol;
-        if(transaction.buy_sell){buySellSymbol="Buy";}
-        else{buySellSymbol="Sell";}
+        if (transaction.buy_sell) { buySellSymbol = "Buy"; }
+        else { buySellSymbol = "Sell"; }
         let html = transactionTemplate({
-            "id":transaction.id,
-            "symbol":transaction.asset_symbol,
-            "tradePrice":transaction.purchase_price,
-            "volume":transaction.purchase_quantity,
-            "buySell":buySellSymbol
+            "id": transaction.id,
+            "symbol": transaction.asset_symbol,
+            "tradePrice": transaction.purchase_price,
+            "volume": transaction.purchase_quantity,
+            "buySell": buySellSymbol
         });
         $('#portfolio-details > tbody').append(html);
     });
