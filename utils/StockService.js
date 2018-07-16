@@ -36,4 +36,9 @@ module.exports = class StockService{
             });
         });
     }
+
+    getStockList(){
+        return this.knex.select("asset_symbol","currency","quantity_per_hand","name")
+        .table('assets');
+    }
 }

@@ -13,7 +13,10 @@ module.exports = (express) => {
 
 
     router.get('/',isLoggedIn, (req, res) => {
-        res.render("index");
+        res.render("index", {
+            pageTitle: 'Index',
+            pageID: 'index'
+        });
     });
 
     router.get('/login', (req, res) => {
@@ -26,7 +29,7 @@ module.exports = (express) => {
     router.post('/login', passport.authenticate('local-login', {
         successRedirect: '/index',
         failureRedirect: '/login',
-        failureFlash: true
+        failureFlash: true // Disable flash
     }));
 
     router.get('/signup', (req,res)=>{
@@ -50,7 +53,11 @@ module.exports = (express) => {
     }),(req,res)=>res.redirect('/welcome'));
 
     router.get('/index',isLoggedIn, (req, res) => {
-        res.render("index", { username: req.user.username });
+        res.render("index", { 
+            username: req.user.username,
+            pageTitle: 'Index',
+            pageID: 'index',
+        });
         console.log(req.session.passport.user);
     });
 
@@ -65,22 +72,26 @@ module.exports = (express) => {
             pageID: 'home'
         });
     });
-    router.get('/search', function(req, res){
+    router.get('/search',isLoggedIn, function(req, res){
         res.render('search', {
             pageTitle: 'Search',
             pageID: 'search'
         });
     });
 
-    router.get('/portfolio', function(req,res){
+    router.get('/portfolio',isLoggedIn, function(req,res){
         res.render('portfolio', {
             pageTitle: 'Portfolio',
             pageID: 'portfolio'
           });
     });
 
-    router.get('/stock/:symbol',function(req,res){
+    router.get('/stock/:symbol',isLoggedIn,function(req,res){
         res.render('stock',{symbol:req.params.symbol})
+    });
+
+    router.get('/addTran/:symbol',isLoggedIn, function(req,res){
+        res.render('addTran',{symbol:req.params.symbol})
     });
 
     return router;

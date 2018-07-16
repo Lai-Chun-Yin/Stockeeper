@@ -1,0 +1,56 @@
+
+<div class="shifted-content h-100 p-ab">
+    <div class="app-bar pos-absolute bg-red z-1" data-role="appbar">
+        <button class="app-bar-item c-pointer" id="sidebar-toggle-3">
+            <span class="mif-menu fg-white"></span>
+        </button>
+    </div>
+
+    <div class="auth-form">
+        <form id="add-tran-form" action="/api/transaction/" method="POST">
+            <div class="form-group">
+                <h3>Add transaction</h3>
+            </div>
+            <div class="form-group">
+                <label>Asset Symbol: </label>
+                <input type="text" value="{{symbol}}" name="symbol" readonly>
+            </div>
+            <div class="form-group">
+                <label>Portfolio</label>
+                <select id="select-portfolio" name="portfolio">
+                    {{!-- <option class="fg-cyan">One</option>
+                    <option class="text-bold fg-red">Two</option> --}}
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Buy / Sell</label>
+                <select name="trade-type">
+                    <option selected>Buy</option>
+                    <option >Sell</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Trade Price</label>
+                <input type="number" name="trade-price" step=".001" />
+            </div>
+            <div class="form-group">
+                <label>Volume</label>
+                <input type="number" name="volume" />
+            </div>
+            <div class="form-group">
+                <label>Trade date</label>
+                <input data-role="datepicker" name="trade-date" />
+            </div>
+            <div class="form-group">
+                <button class="button success">Send</button>
+                <input type="button" class="button" value="Cancel">
+            </div>
+        </form>
+    </div>
+</div>
+{{> metrojs}} {{!--
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script> --}}
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+<script src="../js/addTran.js" type="application/javascript"></script>

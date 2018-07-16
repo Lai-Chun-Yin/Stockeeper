@@ -23,12 +23,18 @@ const StockRouter = require('./router/StockRouter');
 const StockService = require('./utils/StockService');
 const PortfolioService = require('./utils/PortfolioService');
 const PortfolioRouter = require('./router/PortfolioRouter');
+const TransactionRouter = require('./router/TransactionRouter');
+const TransactionService = require('./utils/TransactionService');
 
 app.use(session({
   secret: 'supersecret'
 }));
 
 app.use(bodyParser());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(bodyParser.json());
 
 setupPassport(app);
 
@@ -43,6 +49,8 @@ app.use('/', router);
 // New route method
 let ps = new PortfolioService(knex);
 let ss = new StockService(knex);
+let ts = new TransactionService(knex);
+app.use('/api/transaction',(new TransactionRouter(ts)).router());
 app.use('/api/portfolio', (new PortfolioRouter(ps)).router());
 app.use('/api/stock',(new StockRouter(ss)).router());
 
