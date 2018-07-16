@@ -1,10 +1,11 @@
+<body>
  {{> metrosidebar}}
 <div class="shifted-content h-100 p-ab">
     {{> metroappbar}}
 
     <div class="h-100 p-4">
-        <p class="h1">Portfolio Summary</p>
-        <table class="table" id="portfolio-summary">
+        <p class="h1">{{{pageTitle}}}</p>
+        {{!-- <table class="table" id="portfolio-summary">
             <thead>
                 <tr>
                     <th>#</th>
@@ -16,8 +17,8 @@
             <tbody>
                 
             </tbody>
-        </table>
-        <p class="h2">Portfolio Details</p>
+        </table> --}}
+        {{!-- <p class="h2">Portfolio Details</p> --}}
         {{!-- <ul class="bottom" data-role="tabs">
             <li>Positions</li>
             <li>Transactions</li>
@@ -38,3 +39,4 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
 <script src="js/portfolioService.js"></script>
+</body>

@@ -13,7 +13,10 @@ module.exports = (express) => {
 
 
     router.get('/',isLoggedIn, (req, res) => {
-        res.render("index");
+        res.render("index", {
+            pageTitle: 'Index',
+            pageID: 'index'
+        });
     });
 
     router.get('/login', (req, res) => {
@@ -26,7 +29,7 @@ module.exports = (express) => {
     router.post('/login', passport.authenticate('local-login', {
         successRedirect: '/index',
         failureRedirect: '/login',
-        failureFlash: true
+        failureFlash: true // Disable flash
     }));
 
     router.get('/signup', (req,res)=>{
@@ -50,7 +53,11 @@ module.exports = (express) => {
     }),(req,res)=>res.redirect('/welcome'));
 
     router.get('/index',isLoggedIn, (req, res) => {
-        res.render("index", { username: req.user.username });
+        res.render("index", { 
+            username: req.user.username,
+            pageTitle: 'Index',
+            pageID: 'index',
+        });
         console.log(req.session.passport.user);
     });
 

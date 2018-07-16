@@ -10,8 +10,8 @@
             </div>
         </div>
 
-        <div class="h-100 p-4">
-            <p class="h1">Search</p>
+        <div class="container h-100 p-4">
+            <p class="h1">{{{pageTitle}}}</p>
             <p class="h2">What is Lorem Ipsum?</p>
             <p>
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
@@ -19,53 +19,42 @@
             </p>
         </div>
 
-        <div class="container-fluid">
-            <table class="table striped table-border mt-4" 
-                data-role="table" 
-                data-cls-table-top="row flex-nowrap" 
-                data-cls-search="cell-md-8"
-                data-cls-rows-count="cell-md-4" 
-                data-rows="5" 
-                data-rows-steps="5, 10"
-                >
+        <div class="container">
+            
+            <table class="table striped row-hover table-border mt-4" data-role="table" data-cls-table-top="row flex-nowrap" data-cls-search="cell-md-8"
+                data-cls-rows-count="cell-md-4" data-rows="5" data-rows-steps="5, 10">
                 <thead>
                     <tr>
                         <th class="sortable-column sort-asc">Symbol</th>
                         <th class="sortable-column sort-asc">Company</th>
                         <th class="sortable-column" data-format="money">Current Price</th>
                         <th class="sortable-column" data-format="money">Status</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>HKG:0005</td>
-                        <td>HSBC Holdings plc</td>
-                        <td>$73.90</td>
-                        <td>$+0.55(0.75%)</td>
-                    </tr>
-                    <tr>
-                        <td>HKG:0700</td>
-                        <td>Tencent Holdings Ltd</td>
-                        <td>$386.80</td>
-                        <td>$−9.20(2.32%)</td>
-                    </tr>
-                    <tr>
-                        <td>HKG:2318</td>
-                        <td>PING AN INSURAN</td>
-                        <td>$71.10</td>
-                        <td>+0.15(0.21%)</td>
-                    </tr>
                 </tbody>
-                {{!-- <tfoot>
+                <tfoot>
                     <tr>
                         <th>Symbol</th>
                         <th>Company</th>
                         <th>Current Price</th>
                         <th>Status</th>
+                        <th>Action</th>
                     </tr>
-                </tfoot> --}}
+                </tfoot>
             </table>
         </div>
     </div>
+    </div>
     {{> metrojs}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+    <script src="./js/searchData.js"></script>
+
+    {{!-- <script id="template" type="text/x-handlebars-template">
+        <p>{{ Company }}</p>
+        <p>{{ Symbol }}</p>
+        <p>{{ Current_Price }}</p>
+        <p>{{ Status }}</p>
+    </script> --}}
 </body>
