@@ -66,7 +66,7 @@ $('#portfolio-summary').on('click', '.btn-select-portfolio', function () {
     let portfolio_id = $(event.target).parent().parent().attr("data-id");
     portfolioId = portfolio_id;
     $(event.target).parent().parent().siblings('tr').css({
-        "color":"black"
+        "color": "black"
     });
     $(event.target).parent().parent().css({
         "color": "blue"
@@ -155,9 +155,9 @@ $(function () {
 
 function fetchPortfolioData() {
     $('#portfolio-details').empty();
-    $('#btn-positions').attr('disabled','disabled');
-    $('#btn-transactions').attr('disabled','disabled');
-    $('#btn-graphs').attr('disabled','disabled');
+    $('#btn-positions').attr('disabled', 'disabled');
+    $('#btn-transactions').attr('disabled', 'disabled');
+    $('#btn-graphs').attr('disabled', 'disabled');
     axios.get(`/api/portfolio/${portfolioId}`).then(function (results) {
         //data cleaning
         transactions = results.data.transactions.map(function (transaction) {
@@ -178,11 +178,12 @@ function fetchPortfolioData() {
         $('#btn-transactions').removeAttr('disabled');
         $('#btn-graphs').removeAttr('disabled');
         renderPortfolioPositions();
-    }).catch(function (err) { 
+    }).catch(function (err) {
         $('#btn-positions').removeAttr('disabled');
         $('#btn-transactions').removeAttr('disabled');
         $('#btn-graphs').removeAttr('disabled');
-        console.log(err); });
+        console.log(err);
+    });
 }
 function renderPortfolios() {
     portfolios.forEach(function (portfolio) {
@@ -212,6 +213,7 @@ function renderPortfolioTransactions() {
     $('#portfolio-details').append(transactionHeadingHtml);
     transactions.forEach(function (transaction) {
         let buySellSymbol;
+        let timeString = moment(transaction.transaction_time).format("MMM Do YY");
         if (transaction.buy_sell) { buySellSymbol = "Buy"; }
         else { buySellSymbol = "Sell"; }
         let html = transactionTemplate({
@@ -219,11 +221,69 @@ function renderPortfolioTransactions() {
             "symbol": transaction.asset_symbol,
             "tradePrice": transaction.purchase_price,
             "volume": transaction.purchase_quantity,
-            "buySell": buySellSymbol
+            "buySell": buySellSymbol,
+            "tradeTime": timeString
         });
         $('#portfolio-details > tbody').append(html);
     });
 }
 
+//Graphes by d3
+let mktValueChartHtml = `
+<div>
+<svg id="mktValue-chart" class="chart" width="600" height="400"
+  viewBox="0 0 600 400"
+  preserveAspectRatio="xMidYMid meet">
+</svg></div>
+`;
+let plChartHtml = `
+<div>
+<svg id="pl-chart" class="chart" width="600" height="400"
+  viewBox="0 0 600 400"
+  preserveAspectRatio="xMidYMid meet">
+</svg></div>
+`;
+let width = 600,
+    height = 400,
+    radius = Math.min(width, height) / 2;
+let color = d3.scaleOrdinal(d3.schemeCategory20);
+let aspect = width / height;
 
+let pie = d3.pie()
+    .value(function (d) { return d.current_price * d.sum; })
+    .sort(null);
+let arc = d3.arc()
+    .innerRadius(radius - 80)
+    .outerRadius(radius - 20);
 
+$('#btn-graphs').on('click', function () {
+    $('#portfolio-details').empty().append(mktValueChartHtml).append(plChartHtml);
+    let mktValSvg = d3.select('#mktValue-chart')
+        .append("g")
+        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+    // let plSvg =  d3.select('#pl-chart')
+    // .append("g")
+    // .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+    let g = mktValSvg.selectAll(".arc")
+        .data(pie(positions))
+        .enter().append("g")
+        .attr("class", "arc");
+
+    g.append("path")
+        .attr("d", arc)
+        .style("fill", function (d) { return color(d.data.asset_symbol); });
+
+    // $(window).trigger("resize");
+});
+
+$(window).on("resize", function () {
+
+    let chart = $('.chart');
+    // plChart = d3.select('#pl-chart');
+    let container = chart.parent();
+    let targetWidth = container.width;
+    chart.attr("width", targetWidth);
+    chart.attr("height", Math.round(targetWidth / aspect));
+
+});
