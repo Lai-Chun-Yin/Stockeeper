@@ -1,35 +1,36 @@
-<body>
-    {{> metrosidebar}}
-    <div class="shifted-content h-100 p-ab">
-        {{> metroappbar}}
-        
-        <div class="grid">
-            <div class="row">
-                <div class="cell-3">
-                    {{symbol}}
-                </div>
-                <div class="cell-9">
-                    <span id="name"></span>
-                </div>
+ {{> metrosidebar}}
+<div class="shifted-content h-100 p-ab">
+    {{> metroappbar}}
+
+    <div class="grid">
+        <div class="row">
+            <div class="cell-3" >
+            <span id="stock-symbol">{{symbol}}</span>
             </div>
-            <div class="row">
-                <div class="cell-6">
-                    <div>test</div>
-                    <div>test</div>
-                </div>
-                <div class="cell-2">
-                    <div>test</div>
-                    <div>test</div>
-                </div>
-                <div class="cell-2">
-                    <div>test</div>
-                    <div>test</div>
-                </div>
-                <div class="cell-2">
-                    <div>test</div>
-                    <div>test</div>
-                </div>
+            <div class="cell-9">
+                <span id="name"></span>
+            </div>
+            <button id="btn-addTran">Add transaction</button>
+        </div>
+        <div class="row">
+            <div class="cell-6">
+                <div>test</div>
+                <div>test</div>
+            </div>
+            <div class="cell-2">
+                <div>test</div>
+                <div>test</div>
+            </div>
+            <div class="cell-2">
+                <div>test</div>
+                <div>test</div>
+            </div>
+            <div class="cell-2">
+                <div>test</div>
+                <div>test</div>
             </div>
         </div>
     </div>
-</body>
+</div>
+{{> metrojs}}
+<script src="../js/stock.js"></script>

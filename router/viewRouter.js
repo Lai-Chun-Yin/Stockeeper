@@ -72,22 +72,26 @@ module.exports = (express) => {
             pageID: 'home'
         });
     });
-    router.get('/search', function(req, res){
+    router.get('/search',isLoggedIn, function(req, res){
         res.render('search', {
             pageTitle: 'Search',
             pageID: 'search'
         });
     });
 
-    router.get('/portfolio', function(req,res){
+    router.get('/portfolio',isLoggedIn, function(req,res){
         res.render('portfolio', {
             pageTitle: 'Portfolio',
             pageID: 'portfolio'
           });
     });
 
-    router.get('/stock/:symbol',function(req,res){
+    router.get('/stock/:symbol',isLoggedIn,function(req,res){
         res.render('stock',{symbol:req.params.symbol})
+    });
+
+    router.get('/addTran/:symbol',isLoggedIn, function(req,res){
+        res.render('addTran',{symbol:req.params.symbol})
     });
 
     return router;

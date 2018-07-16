@@ -19,10 +19,16 @@
             </p>
         </div>
 
-        <div class="container">
-            
-            <table class="table striped row-hover table-border mt-4" data-role="table" data-cls-table-top="row flex-nowrap" data-cls-search="cell-md-8"
-                data-cls-rows-count="cell-md-4" data-rows="5" data-rows-steps="5, 10">
+        <div class="container-fluid">
+            <table class="table striped table-border mt-4" id="search-table"
+                data-role="table" 
+                data-cls-table-top="row flex-nowrap" 
+                data-cls-search="cell-md-8"
+                data-cls-rows-count="cell-md-4" 
+                data-rows="5" 
+                data-rows-steps="5, 10"
+                data-source="/api/stock/"
+                >
                 <thead>
                     <tr>
                         <th class="sortable-column sort-asc">Symbol</th>
@@ -33,6 +39,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    
                 </tbody>
                 <tfoot>
                     <tr>
@@ -48,13 +55,5 @@
     </div>
     </div>
     {{> metrojs}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
-    <script src="./js/searchData.js"></script>
-
-    {{!-- <script id="template" type="text/x-handlebars-template">
-        <p>{{ Company }}</p>
-        <p>{{ Symbol }}</p>
-        <p>{{ Current_Price }}</p>
-        <p>{{ Status }}</p>
-    </script> --}}
+    <script src="js/search.js"></script>
 </body>

@@ -12,7 +12,7 @@ module.exports = class PortfolioService {
     }
 
     listTransinP(portfolioId) {
-        let query = this.knex.select("asset_symbol", "purchase_price", "purchase_quantity", "buy_sell", "transaction_time")
+        let query = this.knex.select("id","asset_symbol", "purchase_price", "purchase_quantity", "buy_sell", "transaction_time")
             .from("transactions").where("portfolio_id", portfolioId);
         return query;
     }
@@ -59,5 +59,25 @@ module.exports = class PortfolioService {
                 resolve(arrayOfPrice);
             });
         });
+    }
+
+    addPortfolio(userId,portfolioName){
+        return this.knex('portfolios').insert({
+            user_id: userId,
+            name: portfolioName
+        });
+    }
+
+    putPortfolio(portfolioId,portfolioName){
+        let action = this.knex('portfolios').where('id',portfolioId)
+        .update({
+            name: portfolioName
+        });
+        return action;
+    }
+
+    deletePortfolio(portfolioId){
+        let action = this.knex('portfolios').where('id',portfolioId).del();
+        return action;
     }
 }

@@ -1,0 +1,55 @@
+<body>
+    <div class="shifted-content h-100 p-ab">
+        <div class="app-bar pos-absolute bg-red z-1" data-role="appbar">
+            <button class="app-bar-item c-pointer" id="sidebar-toggle-3">
+                <span class="mif-menu fg-white"></span>
+            </button>
+        </div>
+
+        <div class="auth-form">
+            <form id="add-tran-form" action="/signup" method="POST">
+                <div class="form-group">
+                    <h3>Modify transaction</h3>
+                </div>
+                <div class="form-group">
+                    <label>Asset Symbol: </label>
+                    <input type="text" name="asset-symbol"/>
+                </div>
+                <div class="form-group">
+                    <label>Portfolio</label>
+                    <select data-role="select" name="portfolio">
+                        <option class="fg-cyan">One</option>
+                        <option class="text-bold fg-red">Two</option>
+                        <option selected class="fg-green">Three</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Buy / Sell</label>
+                    <select data-role="select" name="portfolio">
+                        <option selected class="fg-red">Buy</option>
+                        <option class="fg-green">Sell</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Trade Price</label>
+                    <input type="number" name="trade-price"/>
+                </div>
+                <div class="form-group">
+                    <label>Volume</label>
+                    <input type="number" name="volume" />
+                </div>
+                <div class="form-group">
+                    <label>Trade date</label>
+                    <input data-role="datepicker">
+                </div>
+                <div class="form-group">
+                    <button class="button success">Send</button>
+                    <input type="button" class="button" value="Cancel">
+                </div>
+            </form>
+        </div>
+    </div>
+    {{> metrojs}} {{!--
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script> --}}
+</body>
