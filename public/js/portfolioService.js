@@ -71,6 +71,8 @@ $('#portfolio-summary').on('click', '.btn-select-portfolio', function () {
     $(event.target).parent().parent().css({
         "color": "blue"
     });
+    $('tbody .btn-select-portfolio').removeAttr('disabled');
+    $(event.target).parent().children('.btn-select-portfolio').attr('disabled','disabled');
     fetchPortfolioData();
 });
 $('#btn-add-portfolio').on('click', function () {
@@ -307,7 +309,8 @@ $(window).on("resize", function () {
     // plChart = d3.select('#pl-chart');
     let container = chart.parent();
     let targetWidth = container.width;
-    chart.attr("width", targetWidth>600 ? 600:targetWidth);
-    chart.attr("height", targetWidth>600 ? 400:Math.round(targetWidth / aspect));
+    chart.removeAttr("width").removeAttr("height");
+    chart.attr("width", (targetWidth>600) ? 600 : targetWidth);
+    chart.attr("height", (targetWidth>600) ? 400 :Math.round(targetWidth / aspect));
 
 });

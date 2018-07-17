@@ -1,21 +1,24 @@
 {{> metrosidebar}}
-<div class="chat">
-  <div class="chat__sidebar">
-    <h3>People</h3>
-    <div id="users"></div>
-  </div>
-
-  <div class="chat__main">
-    <ol id='messages' class="chat__messages"></ol>
-
-    <div class="chat__footer">
-      <form id="message-form">
-        <input name="message" type="text" placeholder="message" autofocus autocomplete="off"/>
-        <button>Send</button>
-      </form>
-      
+<div class="shifted-content h-100 p-ab">
+  {{> metroappbar}}
+  <div class="chat">
+    <div class="chat__sidebar">
+      <h3>People</h3>
+      <div id="users"></div>
     </div>
 
+    <div class="chat__main">
+      <ol id='messages' class="chat__messages"></ol>
+
+      <div class="chat__footer">
+        <form id="message-form">
+          <input name="message" type="text" placeholder="message" autofocus autocomplete="off"/>
+          <button>Send</button>
+        </form>
+        
+      </div>
+
+    </div>
   </div>
 </div>
 <!--
