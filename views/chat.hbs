@@ -1,6 +1,4 @@
-
-<body>
-{{> navbar-inner}}
+{{> metrosidebar}}
 <div class="chat">
   <div class="chat__sidebar">
     <h3>People</h3>
@@ -33,10 +31,8 @@
     </li>
   </script>
 -->
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-    crossorigin="anonymous"></script>
+  {{> metrojs}}
   <script src="/socket.io/socket.io.js"></script>
   <script src="js/lib/moment.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
   <script src="/js/chat.js"></script>
-</body>
