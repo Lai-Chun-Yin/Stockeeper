@@ -86,6 +86,13 @@ module.exports = (express) => {
           });
     });
 
+    router.get('/chat',isLoggedIn, function(req,res){
+      res.render('chat', {
+          pageTitle: 'Chat Room',
+          pageID: 'chat'
+        });
+    });
+
     router.get('/stock/:symbol',isLoggedIn,function(req,res){
         res.render('stock',{symbol:req.params.symbol})
     });
