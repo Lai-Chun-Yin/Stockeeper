@@ -248,6 +248,8 @@ let width = 600,
     radius = Math.min(width, height) / 2;
 let color = d3.scaleOrdinal(d3.schemeCategory20);
 let aspect = width / height;
+let legendRectSize = 25; // defines the size of the colored squares in legend
+let legendSpacing = 6;
 
 let pie = d3.pie()
     .value(function (d) { return d.current_price * d.sum; })
@@ -260,7 +262,7 @@ $('#btn-graphs').on('click', function () {
     $('#portfolio-details').empty().append(mktValueChartHtml).append(plChartHtml);
     let mktValSvg = d3.select('#mktValue-chart')
         .append("g")
-        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+        .attr("transform", "translate(" + (width/2-100) + "," + height / 2 + ")");
     // let plSvg =  d3.select('#pl-chart')
     // .append("g")
     // .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
@@ -274,7 +276,29 @@ $('#btn-graphs').on('click', function () {
         .attr("d", arc)
         .style("fill", function (d) { return color(d.data.asset_symbol); });
 
-    // $(window).trigger("resize");
+    let mktValLegend = mktValSvg.selectAll('.legend') // selecting elements with class 'legend'
+        .data(positions) // refers to an array of labels from our dataset
+        .enter() // creates placeholder
+        .append('g') // replace placeholders with g elements
+        .attr('class', 'legend') // each g is given a legend class
+        .attr('transform', function (d, i) {
+            var height = legendRectSize + legendSpacing; // height of element is the height of the colored square plus the spacing      
+            var offset = height * positions.length / 2; // vertical offset of the entire legend = height of a single element & half the total number of elements  
+            var horz = 8 * legendRectSize; // the legend is shifted to the left to make room for the text
+            var vert = i * height - offset; // the top of the element is hifted up or down from the center using the offset defiend earlier and the index of the current element 'i'               
+            return 'translate(' + horz + ',' + vert + ')'; //return translation       
+        });
+    mktValLegend.append('rect') // append rectangle squares to legend                                   
+        .attr('width', legendRectSize) // width of rect size is defined above                        
+        .attr('height', legendRectSize) // height of rect size is defined above                      
+        .style('fill', function (d) { return color(d.asset_symbol) }) // each fill is passed a color
+        .style('stroke', function (d) { return color(d.asset_symbol) });
+    mktValLegend.append('text')
+        .attr('x', legendRectSize + legendSpacing)
+        .attr('y', legendRectSize - legendSpacing)
+        .text(function (d) { return d.asset_symbol; });
+
+    $(window).trigger("resize");
 });
 
 $(window).on("resize", function () {
@@ -283,7 +307,7 @@ $(window).on("resize", function () {
     // plChart = d3.select('#pl-chart');
     let container = chart.parent();
     let targetWidth = container.width;
-    chart.attr("width", targetWidth);
-    chart.attr("height", Math.round(targetWidth / aspect));
+    chart.attr("width", targetWidth>600 ? 600:targetWidth);
+    chart.attr("height", targetWidth>600 ? 400:Math.round(targetWidth / aspect));
 
 });
