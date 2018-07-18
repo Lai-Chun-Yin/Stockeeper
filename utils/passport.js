@@ -83,12 +83,19 @@ module.exports = (app) => {
         done(null, user.id);
     });
 
-    passport.deserializeUser(async (id, done) => {
-        let users = await knex('users').where({id:id});
-        if (users.length == 0) {
-            return done(new Error(`Wrong user id ${id}`));
-        }
-        let user = users[0];
-        return done(null, user);
-    });
+    const deserializeUser = async (id, done) => {
+      console.log('deserialize user id ', id);
+      let users = await knex('users').where({ id: Number(id) });   // my own addition
+      if (users.length == 0) {
+        return done(new Error(`Wrong user id ${id}`));
+      }
+      let user = users[0];
+      return done(null, user.email);
+    };
+
+    passport.deserializeUser(deserializeUser);
+
+    return {
+      deserializeUser: deserializeUser
+    }
 };
