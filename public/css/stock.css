@@ -1,0 +1,76 @@
+.infoboard {
+    background: #333;
+    margin: 70px auto;
+    box-shadow: 0 4px 0px #333;
+    border-radius: 15px;
+  }
+
+.header {
+    padding: 5px 10px;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #222;
+    border-radius: 15px 15px 0 0;
+    border-bottom: solid 2px #444;
+}
+
+.header span {
+    letter-spacing: 3px;
+    color: #eee;
+}
+
+.detailsBoard {
+    color: #eee;
+    display: flex;
+}
+
+.priceBoard {
+    
+    border-right: solid 2px #444;
+}
+
+
+.detailsBoard td:first-child {
+    text-align: right;
+    font-weight: normal;
+    letter-spacing: 2px;
+    color: #888;
+    padding: auto 5px;
+  }
+
+.detailsBoard td:last-child {
+    text-align: left;
+    padding: auto 0;
+}
+
+.chart-panel {
+    border-top: solid 2px #444;
+}
+
+/* style of chart */
+text {
+    fill: #eee;
+}
+.axis{
+    stroke: #eee;
+}
+
+path.candle {
+    stroke: #000000;
+}
+
+path.candle.body {
+    stroke-width: 0;
+}
+
+path.candle.up {
+    fill: #00AA00;
+    stroke: #00AA00;
+}
+
+path.candle.down {
+    fill: #FF0000;
+    stroke: #FF0000;
+}

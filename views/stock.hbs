@@ -1,36 +1,75 @@
+<link rel="stylesheet" href="../css/stock.css">
  {{> metrosidebar}}
 <div class="shifted-content h-100 p-ab">
     {{> metroappbar}}
 
-    <div class="grid">
-        <div class="row">
-            <div class="cell-3" >
-            <span id="stock-symbol">{{symbol}}</span>
+    <div class="container">
+        <div class="infoboard grid">
+            <div class="header">
+                <div >
+                    <span id="stock-symbol">{{symbol}}</span>
+                    <span>   </span>
+                    <span id="stock-name"></span>
+                </div>
+                <button id="btn-addTran" class="button warning">
+                    Add transaction
+                </button>
             </div>
-            <div class="cell-9">
-                <span id="name"></span>
+            <div class="detailsBoard row">
+                <table class="priceBoard cell-sm-full cell-md-12 cell-lg-4">
+                    <tr>
+                        <td>Current Price: </td>
+                        <td id="current-price"></td>
+                    </tr>
+                    <tr>
+                        <td>Price Change: </td>
+                        <td id="price-change"></td>
+                    </tr>
+                    <tr>
+                        <td>% Change: </td>
+                        <td id="price-percentage-change"></td>
+                    </tr>
+                </table>
+                <table class="otherInfoBoard cell-sm-full cell-md-6 cell-lg-3">
+                   <tr>
+                       <td>Open: </td>
+                       <td id="open-price"></td>
+                   </tr> 
+                   <tr>
+                       <td>High: </td>
+                       <td id="high-price"></td>
+                   </tr>
+                   <tr>
+                       <td>Low: </td>
+                       <td id="low-price"></td>
+                   </tr>
+                </table>
+                <table class="otherInfoBoard cell-sm-full cell-md-6 cell-lg-5">
+                    <tr>
+                        <td>Market Capitalization: </td>
+                        <td id="mkt-cap"></td>
+                    </tr>
+                    <tr>
+                        <td>Volume: </td>
+                        <td id="volume"></td>
+                    </tr>
+                    <tr>
+                        <td>Previous Close: </td>
+                        <td id="previous-close-price"></td>
+                    </tr>
+                </table>
             </div>
-            <button id="btn-addTran">Add transaction</button>
-        </div>
-        <div class="row">
-            <div class="cell-6">
-                <div>test</div>
-                <div>test</div>
+            <div class="chart-panel">
+
             </div>
-            <div class="cell-2">
-                <div>test</div>
-                <div>test</div>
-            </div>
-            <div class="cell-2">
-                <div>test</div>
-                <div>test</div>
-            </div>
-            <div class="cell-2">
-                <div>test</div>
-                <div>test</div>
+            <div id="chart-area">
+
             </div>
         </div>
     </div>
 </div>
 {{> metrojs}}
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="http://d3js.org/d3.v4.min.js"></script>
+<script src="../js/lib/techan.min.js"></script>
 <script src="../js/stock.js"></script>
