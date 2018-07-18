@@ -24,3 +24,17 @@
   ul .item .subItem .price{
     background-color: rgb(255, 223, 155);
   }
+
+  .chat {
+    display: flex;
+  }
+
+  .chat__sidebar {
+    overflow-y: scroll;
+    width: 10em;
+    height: 100vh;
+  }
+
+  .chat ul li {
+    list-style-type: none;
+  }
