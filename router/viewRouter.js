@@ -1,4 +1,8 @@
 const passport = require('passport');
+const knexConfig = require('../knexfile').development;
+const knex = require('knex')(knexConfig);
+const PortfolioService = require('../utils/PortfolioService');
+let ps = new PortfolioService(knex);
 
 module.exports = (express) => {
     const router = express.Router();
@@ -53,12 +57,14 @@ module.exports = (express) => {
     }),(req,res)=>res.redirect('/welcome'));
 
     router.get('/index',isLoggedIn, (req, res) => {
-        res.render("index", { 
+        ps.listPortfolios(req.session.passport.user).then((result) => {
+          res.render("index", { 
             username: req.user.username,
             pageTitle: 'Index',
             pageID: 'index',
-        });
-        console.log(req.session.passport.user);
+            portfoList: result
+          });
+        })
     });
 
     router.get('/logout', function(req, res){
@@ -80,10 +86,13 @@ module.exports = (express) => {
     });
 
     router.get('/portfolio',isLoggedIn, function(req,res){
+      ps.listPortfolios(req.session.passport.user).then((result) => {
         res.render('portfolio', {
             pageTitle: 'Portfolio',
-            pageID: 'portfolio'
+            pageID: 'portfolio',
+            portfoList: result
           });
+        })
     });
 
     router.get('/chat',isLoggedIn, function(req,res){

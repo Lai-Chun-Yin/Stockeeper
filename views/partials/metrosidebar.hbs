@@ -25,22 +25,12 @@
                     <a href="portfolio">
                         <span class="mif-files-empty icon"></span>Portfolio Summary</a>
                 </li>
+                {{#each portfoList}}
                 <li>
-                    <a href="portfolio_A">
-                        <span class="mif-file-empty icon"></span>Portfolio A</a>
-                </li>
-                <li>
-                    <a href="portfolio_A">
-                        <span class="mif-file-empty icon"></span>Portfolio B</a>
-                </li>
-                <li>
-                    <a href="portfolio_A">
-                        <span class="mif-file-empty icon"></span>Portfolio C</a>
-                </li>
-                <li class="disabled">
                     <a href="">
-                        <span class="mif-file-empty icon"></span>Portfolio D</a>
+                        <span class="mif-file-empty icon"></span>{{ name }}</a>
                 </li>
+                {{/each}}
             </ul>
         </li>
         <li>

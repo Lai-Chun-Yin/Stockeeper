@@ -1,7 +1,9 @@
-const StockService = require('../utils/StockService');
+const PortfolioService = require('../utils/PortfolioService');
+const knexConfig = require('../knexfile').development;
+const knex = require('knex')(knexConfig);
 
-(async () => {
-  let ss = new StockService();
-  let price = await ss.getCurrentPrice('0700.HK').price;
-  console.log(price.regularMarketPrice);
+(() => {
+  let ps = new PortfolioService(knex);
+  let portfolios = ps.listPortfolios(1);
+  console.log(portfolios);
 })()
