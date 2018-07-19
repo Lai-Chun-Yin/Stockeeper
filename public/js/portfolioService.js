@@ -173,7 +173,7 @@ function fetchPortfolioData() {
             return cleanPosition;
         });
         positions = positions.filter((position) => {
-            return position.sum >= 0;
+            return position.sum != 0;
         });
         $('#btn-positions').removeAttr('disabled');
         $('#btn-transactions').removeAttr('disabled');
