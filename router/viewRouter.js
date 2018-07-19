@@ -12,11 +12,7 @@ module.exports = (express) => {
         if (req.isAuthenticated()) {
           // as soon as user logged in, retrieve portfolio list
           portfoList = await ps.listPortfolios(req.session.passport.user)
-          console.log('after aynsc call');
-          console.log(portfoList);
-          console.log('return next()');
           return next();
-          
         }
 
         res.redirect('/login');
