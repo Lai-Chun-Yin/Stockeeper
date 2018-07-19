@@ -8,18 +8,19 @@ module.exports = (express) => {
     const router = express.Router();
     let portfoList = [];
 
-    function isLoggedIn(req, res, next) {
+    async function isLoggedIn(req, res, next) {
         if (req.isAuthenticated()) {
           // as soon as user logged in, retrieve portfolio list
-          ps.listPortfolios(req.session.passport.user).then((result) => {
-            portfoList = result;
-          })  
+          portfoList = await ps.listPortfolios(req.session.passport.user)
+          console.log('after aynsc call');
+          console.log(portfoList);
+          console.log('return next()');
           return next();
+          
         }
 
         res.redirect('/login');
     }
-
 
     router.get('/',isLoggedIn, (req, res) => {
         res.render("index", {
