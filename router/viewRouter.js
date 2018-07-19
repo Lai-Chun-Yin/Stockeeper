@@ -89,13 +89,11 @@ module.exports = (express) => {
     });
 
     router.get('/portfolio',isLoggedIn, function(req,res){
-      ps.listPortfolios(req.session.passport.user).then((result) => {
         res.render('portfolio', {
             pageTitle: 'Portfolio',
             pageID: 'portfolio',
             portfoList: portfoList
-          });
-        })
+        });
     });
 
     router.get('/chat',isLoggedIn, function(req,res){
