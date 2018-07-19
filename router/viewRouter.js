@@ -6,10 +6,15 @@ let ps = new PortfolioService(knex);
 
 module.exports = (express) => {
     const router = express.Router();
+    let portfoList = [];
 
     function isLoggedIn(req, res, next) {
         if (req.isAuthenticated()) {
-            return next();
+          // as soon as user logged in, retrieve portfolio list
+          ps.listPortfolios(req.session.passport.user).then((result) => {
+            portfoList = result;
+          })  
+          return next();
         }
 
         res.redirect('/login');
@@ -19,14 +24,15 @@ module.exports = (express) => {
     router.get('/',isLoggedIn, (req, res) => {
         res.render("index", {
             pageTitle: 'Index',
-            pageID: 'index'
+            pageID: 'index',
+            portfoList: portfoList
         });
     });
 
     router.get('/login', (req, res) => {
         res.render('login', {
             pageTitle: 'Login',
-            pageID: 'login'
+            pageID: 'login',
         });
     });
 
@@ -57,14 +63,12 @@ module.exports = (express) => {
     }),(req,res)=>res.redirect('/welcome'));
 
     router.get('/index',isLoggedIn, (req, res) => {
-        ps.listPortfolios(req.session.passport.user).then((result) => {
-          res.render("index", { 
-            username: req.user.username,
-            pageTitle: 'Index',
-            pageID: 'index',
-            portfoList: result
-          });
-        })
+        res.render("index", { 
+          username: req.user.username,
+          pageTitle: 'Index',
+          pageID: 'index',
+          portfoList: portfoList
+        });
     });
 
     router.get('/logout', function(req, res){
@@ -75,13 +79,15 @@ module.exports = (express) => {
     router.get('/home', function(req, res){
         res.render('home', {
             pageTitle: 'Home',
-            pageID: 'home'
+            pageID: 'home',
+            portfoList: portfoList
         });
     });
     router.get('/search',isLoggedIn, function(req, res){
         res.render('search', {
             pageTitle: 'Search',
-            pageID: 'search'
+            pageID: 'search',
+            portfoList: portfoList
         });
     });
 
@@ -90,7 +96,7 @@ module.exports = (express) => {
         res.render('portfolio', {
             pageTitle: 'Portfolio',
             pageID: 'portfolio',
-            portfoList: result
+            portfoList: portfoList
           });
         })
     });
@@ -98,7 +104,8 @@ module.exports = (express) => {
     router.get('/chat',isLoggedIn, function(req,res){
       res.render('chat', {
           pageTitle: 'Chat Room',
-          pageID: 'chat'
+          pageID: 'chat',
+          portfoList: portfoList
         });
     });
 
