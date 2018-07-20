@@ -53,8 +53,11 @@
 text {
     fill: #eee;
 }
-.axis{
-    stroke: #eee;
+.axis > .domain{
+    stroke: #eee !important;
+}
+.axis > .tick > line{
+    stroke: #eee !important;
 }
 
 path.candle {
@@ -73,4 +76,43 @@ path.candle.up {
 path.candle.down {
     fill: #FF0000;
     stroke: #FF0000;
+}
+
+.chart-panel {
+    display: hidden;
+}
+.btn-chart-period {
+    margin: 6px;
+}
+
+.y.annotation.left path {
+    fill: #00AA00;
+}
+
+.y.annotation.right path {
+    fill: #FF0000;
+}
+
+.x.annotation path {
+    fill: #DDD80E;
+}
+
+.crosshair {
+    cursor: crosshair;
+}
+
+.crosshair path.wire {
+    stroke: #DDDDDD;
+    stroke-dasharray: 1, 1;
+}
+
+.crosshair .axisannotation path {
+    fill: #DDDDDD;
+}
+
+.annotation text {
+    font-size: 0.7em !important;
+}
+.data.scope-crosshair {
+    font-size: 0.7em !important;
 }

@@ -36,7 +36,7 @@ module.exports = (express) => {
     router.post('/login', passport.authenticate('local-login', {
         successRedirect: '/index',
         failureRedirect: '/login',
-        failureFlash: true // Disable flash
+        failureMessage: "Invalid username or password"
     }));
 
     router.get('/signup', (req,res)=>{
