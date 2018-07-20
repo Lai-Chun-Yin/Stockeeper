@@ -52,12 +52,19 @@ module.exports = (express) => {
         failureFlash: true
     }));
 
+    router.get("/auth/google",passport.authenticate('googleToken',{
+        scope:['profile','email']
+    }));
+    router.get("/auth/google/redirect",passport.authenticate('googleToken',{
+        failureRedirect: "/"
+    }),(req,res)=>res.redirect('/index'));
+
     router.get("/auth/facebook",passport.authenticate('facebook',{
         scope: ['user_friends', 'manage_pages'] 
     }));
     router.get("/auth/facebook/callback",passport.authenticate('facebook',{
         failureRedirect: "/"
-    }),(req,res)=>res.redirect('/welcome'));
+    }),(req,res)=>res.redirect('/index'));
 
     router.get('/index',isLoggedIn, (req, res) => {
         res.render("index", { 

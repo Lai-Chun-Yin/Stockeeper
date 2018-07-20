@@ -1,6 +1,7 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
+const GooglePlusTokenStrategy = require('passport-google-oauth20');
 const bcrypt = require('./bcrypt');
 require('dotenv').config();
 const knex = require('knex')({
@@ -74,6 +75,26 @@ module.exports = (app) => {
             return cb(null,{profile:profile,accessToken:accessToken});
         }
     )); 
+
+    passport.use("googleToken",new GooglePlusTokenStrategy({
+        clientID: process.env.GOOGLE_PLUS_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        callbackURL:"/auth/google/redirect"
+    }, async(req, accessToken, refreshToken, profile, done)=> {
+        try{
+            let email =  profile.emails[0].value;
+            let users = await knex('users').where({email:email});
+            // If the email is not registered, this means new sign-up
+            if (users.length === 0) {
+                let userId = await knex('users').insert({email:email}).returning('id');
+                return done(null, {email:email,id:userId[0]});
+            }
+            // if the email is registered, this is the existing user
+            done(null,users[0]);
+        } catch(err){
+            done(err);
+        }
+    }));
 
     passport.serializeUser((user, done) => {
         //check if user is already within the database
