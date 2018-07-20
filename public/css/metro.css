@@ -38,3 +38,7 @@
   .chat ul li {
     list-style-type: none;
   }
+
+  .chat ul li span {
+    font-weight: bold;
+  }
