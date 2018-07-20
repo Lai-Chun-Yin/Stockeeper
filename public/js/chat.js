@@ -5,8 +5,7 @@ $(function () {
   var templateScript = Handlebars.compile(`
   <li class="message">
       <div class="message__title">
-        <h4> {{from}}</h4>
-        <span> {{createdAt}}</span>
+        <span> {{from}} - {{createdAt}} </span>
       </div>
       <div class="message__body">
         <p> {{text}}</p>
@@ -41,7 +40,8 @@ $(function () {
     var lastMessageHeight = newMessage.prev().innerHeight();
 
     if (clientHeight + scrollTop + newMessageHeight + lastMessageHeight >= scrollHeight) {
-      messages.scrollTop(scrollHeight);
+      // messages.scrollTop(scrollHeight);
+      $(document).scrollTop(999999);  // scroll to document bottom
     }
   }
 
