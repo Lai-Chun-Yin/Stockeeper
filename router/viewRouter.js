@@ -15,8 +15,16 @@ module.exports = (express) => {
           return next();
         }
 
-        res.redirect('/login');
+        // res.redirect('/login');
+        res.redirect('/welcome');
     }
+
+    router.get('/welcome', (req, res) => {
+        res.render("welcome", {
+            pageTitle: 'Welcome',
+            pageID: 'welcome'
+        });
+    });
 
     router.get('/',isLoggedIn, (req, res) => {
         res.render("index", {

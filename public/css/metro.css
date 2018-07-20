@@ -38,3 +38,10 @@
   .chat ul li {
     list-style-type: none;
   }
+
+  #headline {
+    margin: auto;
+    position: absolute;
+    top: 20%; left: 0; bottom: 20%; right: 0;
+    height: auto;
+  }
