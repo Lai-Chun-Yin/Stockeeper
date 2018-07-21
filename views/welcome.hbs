@@ -3,7 +3,7 @@ style="background-image: url('../img/test_landing_bg.png');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;">
-<body id="{{{pageID}}}">
+{{!-- <body id="{{{pageID}}}"> --}}
     {{!-- <div class="shifted-content h-100 p-ab"> --}}
         {{> metrosignupbar}}
 
@@ -12,12 +12,13 @@ style="background-image: url('../img/test_landing_bg.png');
                 {{!-- <div class="row"> --}}
                     {{!-- <div id="headline"> --}}
                     <div id="headline" class="cell-12 cell-md-8 cell-lg-6 offset-0 offset-md-2 offset-lg-3 p-12 p-md-16 p-lg-20">
-                        <p class="h1">{{{pageTitle}}} to Stockeeper</p>
+                        <h1>{{{pageTitle}}} to Stockeeper</h1>
                         <p>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
-                            text ever since the 1500s 
+                            See all of your portfolios in one place. Manage quickly and easily with our services.
+                            Stockeeper doesn't store your broker credentials. Learn More
                         </p>
-                        <button class="button primary" onclick="location.href='/signup'">Sign Up</button>
+                        {{!-- <button class="button alert rounded" onclick="location.href='/signup'">Sign Up</button> --}}
+                        <button class="button alert rounded" data-role="ripple" onclick="location.href='/signup'">Sign Up</button>
                     </div>
                 {{!-- </div> --}}
             {{!-- </div> --}}

@@ -1,9 +1,19 @@
+  html, h1, h2, h3, h4, h5, h6, p {
+    /* font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; */
+    color: black;
+  }
   /* Auth Form */
   .auth-form {
-    width: 350px;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    width: 300px;
     height: auto;
-    padding-top: 150px;
-    margin: auto;
+    padding: auto;
+    top: 0; left: 0; bottom: 0; right: 0;
+    margin: auto auto;
   }
 
   ul .item{
@@ -39,6 +49,7 @@
     list-style-type: none;
   }
 
+  /* Landing Pages's Headline */
   #headline {
     position: absolute;
     /* width: 50%; */
@@ -61,3 +72,7 @@
     width: 50%;
     margin: 20px auto;
   }
+
+  .rounded {
+    border-radius: 1rem!important;
+}
