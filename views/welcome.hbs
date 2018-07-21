@@ -1,4 +1,8 @@
-{{!-- <body id="{{{pageID}}}" style="background-image: url('../img/test_landing_bg.png');"> --}}
+<body id="{{{pageID}}}" 
+style="background-image: url('../img/test_landing_bg.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;">
 <body id="{{{pageID}}}">
     {{!-- <div class="shifted-content h-100 p-ab"> --}}
         {{> metrosignupbar}}
@@ -6,14 +10,12 @@
         {{!-- <div class="h-100 p-4"> --}}
             {{!-- <div class="grid"> --}}
                 {{!-- <div class="row"> --}}
+                    {{!-- <div id="headline"> --}}
                     <div id="headline" class="cell-12 cell-md-8 cell-lg-6 offset-0 offset-md-2 offset-lg-3 p-12 p-md-16 p-lg-20">
                         <p class="h1">{{{pageTitle}}} to Stockeeper</p>
                         <p>
                             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
-                            text ever since the 1500s ... Lorem Ipsum is simply dummy text of the printing and typesetting
-                            industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s ... Lorem
-                            Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                            industry's standard dummy text ever since the 1500s ... 
+                            text ever since the 1500s 
                         </p>
                         <button class="button primary" onclick="location.href='/signup'">Sign Up</button>
                     </div>

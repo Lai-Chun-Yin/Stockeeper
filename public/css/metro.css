@@ -40,8 +40,24 @@
   }
 
   #headline {
-    margin: auto;
     position: absolute;
-    top: 20%; left: 0; bottom: 20%; right: 0;
+    /* width: 50%; */
     height: auto;
+    top: 0; left: 0; bottom: 0; right: 0;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #headline p {
+    display: block;
+    text-align: center;
+  }
+
+  #headline button {
+    display: block;
+    width: 50%;
+    margin: 20px auto;
   }
