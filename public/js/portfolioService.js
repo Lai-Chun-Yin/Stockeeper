@@ -1,33 +1,35 @@
 let portfolios;
 let transactions;
-let positions;
+let positionsAll, positionsLong, positionsShort, positionsClosed;
 let portfolioId = 1;
 let portfolioTemplate = Handlebars.compile(`
 <tr data-id="{{id}}">
 <td>{{id}}</td>
 <td>{{name}}</td>
-<td><button class="btn-select-portfolio">Select</button></td>
-<td><button class="btn-modify-portfolio">Modify</button>
-<button class="btn-remove-portfolio">Remove</button></td>
+<td><button class="btn-select-portfolio button secondary outline">Select</button></td>
+<td><button class="btn-modify-portfolio button secondary outline"><i class="fas fa-undo-alt"></i></button>
+<button class="btn-remove-portfolio button secondary outline"><i class="fas fa-trash-alt"></i></button></td>
 </tr>
 `);
 let portfolioInputTemplate = Handlebars.compile(`
 <td>{{id}}</td>
 <td class="portRow-name"><input type="text" >{{name}}</input></td>
-<td><button class="btn-input-portfolio">Done</button></td>
-<td><button class="btn-cancel-portfolio">Cancel</button></td>
+<td><button class="btn-input-portfolio mif-checkmark button secondary outline"></button></td>
+<td><button class="btn-cancel-portfolio button secondary outline"><i class="fas fa-ban"></i></button></td>
 `);
-let positionHeadingHtml = `
+let positionHeadingHtml = Handlebars.compile(`
+<caption> {{ positionType }} </caption>
 <thead>
     <tr>
         <th>Symbol</th>
         <th>Current price</th>
         <th>Volume</th>
+        <th>Cost Basis</th>
         <th>Market value</th>
         <th>Profit or loss</th>
     </tr>
 </thead><tbody></tbody>
-`;
+`);
 let transactionHeadingHtml = `
 <thead>
     <tr>
@@ -45,6 +47,7 @@ let positionTemplate = Handlebars.compile(`
 <td>{{symbol}}</td>
 <td>{{currentPrice}}</td>
 <td>{{volume}}</td>
+<td>{{costBasis}}</td>
 <td>{{mktValue}}</td>
 <td>{{pl}}</td>
 </tr>`);
@@ -55,7 +58,9 @@ let transactionTemplate = Handlebars.compile(`
 <td>{{volume}}</td>
 <td>{{buySell}}</td>
 <td>{{tradeTime}}</td>
-<td><button class="btn-remove-trans">Remove</button></td>
+<td><button class="btn-remove-trans button secondary outline">
+<i class="fas fa-trash-alt"></i>
+</button></td>
 </tr>`);
 let tranModifyTemplate = Handlebars.compile(`
 <input type="text" class="tranRow-symbol">{{symbol}}</input>
@@ -123,11 +128,13 @@ $('#portfolio-summary').on('click', '.btn-remove-portfolio', function () {
     });
 });
 $('#btn-positions').on('click', function () {
-    $('#portfolio-details').empty();
+    emptyPortfolioDetails();
+    emptyCharts();
     renderPortfolioPositions();
 });
 $('#btn-transactions').on('click', function () {
-    $('#portfolio-details').empty();
+    emptyPortfolioDetails();
+    emptyCharts();
     renderPortfolioTransactions();
 });
 $('#portfolio-details').on('click', '.btn-modify-trans', function () {
@@ -139,7 +146,7 @@ $('#portfolio-details').on('click', '.btn-remove-trans', function () {
     let tranId = $(event.target).parent().parent().attr("data-id");
     axios.delete(`/api/transaction/${tranId}`).then(function (newTransactions) {
         transactions = newTransactions.data;
-        $('#portfolio-details').empty();
+        emptyPortfolioDetails();
         renderPortfolioTransactions();
     });
 });
@@ -154,8 +161,15 @@ $(function () {
 
 });
 
+function emptyPortfolioDetails() {
+    $('#portfolio-details-long').empty();
+    $('#portfolio-details-short').empty();
+    $('#portfolio-details-closed').empty();
+    $('#portfolio-details-txn').empty();
+  }
+
 function fetchPortfolioData() {
-    $('#portfolio-details').empty();
+    emptyPortfolioDetails();
     $('#btn-positions').attr('disabled', 'disabled');
     $('#btn-transactions').attr('disabled', 'disabled');
     $('#btn-graphs').attr('disabled', 'disabled');
@@ -166,14 +180,21 @@ function fetchPortfolioData() {
             cleanTransaction.purchase_price = +transaction.purchase_price;
             return cleanTransaction;
         });
-        positions = results.data.positions.map(function (position) {
+        let positions = results.data.positions.map(function (position) {
             let cleanPosition = position;
             cleanPosition.sum = +position.sum;
             cleanPosition.value = +position.value;
             return cleanPosition;
         });
-        positions = positions.filter((position) => {
-            return position.sum != 0;
+        positionsAll=positions;
+        positionsLong = positions.filter((position) => {
+            return position.sum > 0;
+        });
+        positionsShort = positions.filter((position) => {
+            return position.sum < 0;
+        });
+        positionsClosed = positions.filter((position) => {
+            return position.sum == 0;
         });
         $('#btn-positions').removeAttr('disabled');
         $('#btn-transactions').removeAttr('disabled');
@@ -197,22 +218,60 @@ function renderPortfolios() {
 }
 
 function renderPortfolioPositions() {
-    $('#portfolio-details').append(positionHeadingHtml);
-    positions.forEach(function (position) {
+    let posLongHtml = positionHeadingHtml({
+        "positionType": "Long Positions"
+    });
+    $('#portfolio-details-long').append(posLongHtml);
+    positionsLong.forEach(function (position) {
         let html = positionTemplate({
             "symbol": position.asset_symbol,
             "currentPrice": position.current_price,
             "volume": position.sum,
+            "costBasis": position.value,
             "mktValue": (position.current_price * position.sum).toFixed(2),
             "pl": (position.current_price * position.sum - position.value)
                 .toFixed(2)
         });
-        $('#portfolio-details > tbody').append(html);
+        $('#portfolio-details-long > tbody').append(html);
+    });
+
+    let posShortHtml = positionHeadingHtml({
+      "positionType": "Short Positions"
+    });
+    $('#portfolio-details-short').append(posShortHtml);
+    positionsShort.forEach(function (position) {
+        let html = positionTemplate({
+            "symbol": position.asset_symbol,
+            "currentPrice": position.current_price,
+            "volume": position.sum,
+            "costBasis": position.value,
+            "mktValue": (position.current_price * position.sum).toFixed(2),
+            "pl": (position.current_price * position.sum - position.value)
+                .toFixed(2)
+        });
+        $('#portfolio-details-short > tbody').append(html);
+    });
+
+    let posClosedHtml = positionHeadingHtml({
+      "positionType": "Closed Positions"
+    });
+    $('#portfolio-details-closed').append(posClosedHtml);
+    positionsClosed.forEach(function (position) {
+        let html = positionTemplate({
+            "symbol": position.asset_symbol,
+            "currentPrice": position.current_price,
+            "volume": position.sum,
+            "costBasis": position.value,
+            "mktValue": (position.current_price * position.sum).toFixed(2),
+            "pl": (position.current_price * position.sum - position.value)
+                .toFixed(2)
+        });
+        $('#portfolio-details-closed > tbody').append(html);
     });
 }
 
 function renderPortfolioTransactions() {
-    $('#portfolio-details').append(transactionHeadingHtml);
+    $('#portfolio-details-txn').append(transactionHeadingHtml);
     transactions.forEach(function (transaction) {
         let buySellSymbol;
         let timeString = moment(transaction.transaction_time).format("MMM Do YY");
@@ -226,25 +285,25 @@ function renderPortfolioTransactions() {
             "buySell": buySellSymbol,
             "tradeTime": timeString
         });
-        $('#portfolio-details > tbody').append(html);
+        $('#portfolio-details-txn > tbody').append(html);
     });
 }
 
 //Graphes by d3
 let mktValueChartHtml = `
-<div id="mktValue-chart-container">
 <svg id="mktValue-chart" class="chart" width="800" height="600"
   viewBox="0 0 800 600"
   preserveAspectRatio="xMidYMid meet">
-</svg></div>
+</svg>
 `;
 let plChartHtml = `
-<div id="pl-chart-container">
 <svg id="pl-chart" class="chart" width="800" height="600"
   viewBox="0 0 800 600"
   preserveAspectRatio="xMidYMid meet">
-</svg></div>
+</svg>
 `;
+
+let t = d3.transition().duration(750);
 let margin = { left: 100, right: 20, top: 80, bottom: 100 };
 let width = 800,
     height = 600,
@@ -261,15 +320,25 @@ let arc = d3.arc()
     .innerRadius(0)
     .outerRadius(radius - 20);
 
+function emptyCharts (){
+    $("#mktValue-chart-container").empty();
+    $("#pl-chart-container").empty();
+    $("#pl-chart-control").css("display","none");
+}
+
 $('#btn-graphs').on('click', function () {
     //Plot mkt val chart
-    $('#portfolio-details').empty().append(mktValueChartHtml).append(plChartHtml);
+    emptyPortfolioDetails();
+    emptyCharts();
+    $('#mktValue-chart-container').append(mktValueChartHtml);
+    $('#pl-chart-container').append(plChartHtml);
+    $('#pl-chart-control').css("display","block");
     let mktValSvg = d3.select('#mktValue-chart')
         .append("g")
         .attr("transform", "translate(" + (width / 2 - 100) + "," + (height / 2+40) + ")");
 
     let g = mktValSvg.selectAll(".arc")
-        .data(pie(positions))
+        .data(pie(positionsLong))
         .enter().append("g")
         .attr("class", "arc");
     let path = g.append('path');
@@ -277,17 +346,17 @@ $('#btn-graphs').on('click', function () {
         .style("fill", function (d) { return color(d.data.asset_symbol); });
 
     let legendScale = d3.scaleBand()
-        .domain(positions.map(function (d) { return d.asset_symbol }))
+        .domain(positionsLong.map(function (d) { return d.asset_symbol }))
         .range([margin.top, height])
         .padding(0.2);
     let mktValLegend = mktValSvg.selectAll('.legend') // selecting elements with class 'legend'
-        .data(positions) // refers to an array of labels from our dataset
+        .data(positionsLong) // refers to an array of labels from our dataset
         .enter() // creates placeholder
         .append('g') // replace placeholders with g elements
         .attr('class', 'legend') // each g is given a legend class
         .attr('transform', function (d, i) {
             var height = legendRectSize + legendSpacing; // height of element is the height of the colored square plus the spacing      
-            var offset = height * positions.length / 2; // vertical offset of the entire legend = height of a single element & half the total number of elements  
+            var offset = height * positionsLong.length / 2; // vertical offset of the entire legend = height of a single element & half the total number of elements  
             var horz = 11 * legendRectSize; // the legend is shifted to the left to make room for the text
             var vert = i * height - offset; // the top of the element is hifted up or down from the center using the offset defiend earlier and the index of the current element 'i'               
             return 'translate(' + horz + ',' + vert + ')'; //return translation       
@@ -313,7 +382,7 @@ $('#btn-graphs').on('click', function () {
         .attr('class', 'percent');
 
     path.on('mouseover', function (d) {
-        var total = d3.sum(positions.map(function (position) {
+        var total = d3.sum(positionsLong.map(function (position) {
             return position.current_price * position.sum;
         }));
         var percent = Math.round(1000 * (d.data.current_price * d.data.sum) / total) / 10;
@@ -338,6 +407,27 @@ $('#btn-graphs').on('click', function () {
         .attr("text-anchor", "middle")
         .text("Market Value of stocks");
 
+    plotPL(positionsLong);
+
+    //Trigger resize for responsive chart
+    $(window).trigger("resize");
+});
+
+$('#pl-chart-control > button').on("click",function(){
+    let type = $(event.target).html();
+    console.log("type");
+    if(type==="long"){plotPL(positionsLong);}
+    else if(type==="short"){plotPL(positionsShort);}
+    else if(type==="closed"){plotPL(positionsClosed);}
+});
+
+function plotPL (positions){
+    if(positions.length===1){ positions.push({
+        current_price:0,
+        sum:0,
+        value:0
+    });}
+    $('#pl-chart').empty();
     //Plot profit or loss bar chart
     let plSvg = d3.select('#pl-chart')
         .append("g")
@@ -382,10 +472,7 @@ $('#btn-graphs').on('click', function () {
         .attr("font-size", "30px")
         .attr("text-anchor", "middle")
         .text("Profit / Loss of stocks");
-
-    //Trigger resize for responsive chart
-    $(window).trigger("resize");
-});
+}
 
 $(window).on("resize", function () {
     let targetWidth = $(window).width();
