@@ -13,4 +13,9 @@ axios.get('/api/portfolio').then(function(results){
         });
         $('#select-portfolio').append(html);
     });
+    if(portfolios.length===0){$('#alert-message').css({display:"block"});}
+});
+
+$( "input[value='Cancel']" ).on('click',function(){
+    location.reload();
 });

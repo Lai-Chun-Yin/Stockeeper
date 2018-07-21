@@ -22,6 +22,8 @@ const PortfolioService = require('./utils/PortfolioService');
 const PortfolioRouter = require('./router/PortfolioRouter');
 const TransactionRouter = require('./router/TransactionRouter');
 const TransactionService = require('./utils/TransactionService');
+const UserRouter = require('./router/UserRouter');
+const UserService = require('./utils/UserService');
 
 // Redis session stuff
 const redis = require('redis');
@@ -71,9 +73,11 @@ app.use('/', router);
 let ps = new PortfolioService(knex);
 let ss = new StockService(knex);
 let ts = new TransactionService(knex);
+let us = new UserService(knex);
 app.use('/api/transaction', (new TransactionRouter(ts)).router());
 app.use('/api/portfolio', (new PortfolioRouter(ps)).router());
 app.use('/api/stock', (new StockRouter(ss)).router());
+app.use('/api/user', (new UserRouter(us)).router());
 
 //Socket io - chat room
 io.use(socketIOSession(settings).parser);

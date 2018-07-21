@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="../css/addTran.css">
 {{> metrosidebar-backward}}
 <div class="shifted-content h-100 p-ab">
     <div class="app-bar pos-absolute bg-red z-1" data-role="appbar">
@@ -18,7 +19,8 @@
             <div class="form-group">
                 <label>Portfolio</label>
                 <select id="select-portfolio" name="portfolio">
-                    {{!-- <option class="fg-cyan">One</option>
+                    {{!--
+                    <option class="fg-cyan">One</option>
                     <option class="text-bold fg-red">Two</option> --}}
                 </select>
             </div>
@@ -26,7 +28,7 @@
                 <label>Buy / Sell</label>
                 <select name="trade-type">
                     <option selected>Buy</option>
-                    <option >Sell</option>
+                    <option>Sell</option>
                 </select>
             </div>
             <div class="form-group">
@@ -46,6 +48,10 @@
                 <input type="button" class="button" value="Cancel">
             </div>
         </form>
+        <div id="alert-message">
+            <span>You do have any portfolio. Click
+                <a href="../portfolio">here</a> to add.</span>
+        </div>
     </div>
 </div>
 {{> metrojs}} {{!--
