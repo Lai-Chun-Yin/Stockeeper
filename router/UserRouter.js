@@ -7,12 +7,16 @@ module.exports = class UserRouter {
 
     router(){
         let router = express.Router();
-        router.get('/:email',this.getUserByEmail.bind(this));
+        router.get('',this.verifyUserByEmail.bind(this));
         
         return router;
     }
 
-    getUserByEmail(req,res){
-        
+    verifyUserByEmail(req,res){
+        this.userService.verifyUserByEmail(req.query.email)
+        .then((result)=>{
+            if(result.length>0){return res.json({check: "fail"})}
+            else if(result.length===0){return res.json({check: "pass"})}
+        })
     }
 }

@@ -3,7 +3,7 @@ module.exports = class UserService{
         this.knex = knex;
     }
 
-    getUserByEmail(email){
-        
+    verifyUserByEmail(email){
+        return this.knex.select('id').from('users').where({email:email});
     }
 }
