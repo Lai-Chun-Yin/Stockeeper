@@ -11,7 +11,6 @@ const bodyParser = require('body-parser');
 const router = require('./router/viewRouter')(express);
 const hbs = require('express-handlebars');
 
-const { generateMessage, generateLocationMessage } = require('./utils/message');
 const publicPath = path.join(__dirname, './public');
 const port = process.env.PORT || 8080;
 
@@ -92,40 +91,9 @@ io.use((socket, next) => {
   }
 });
 
-io.on('connection', async (socket) => {
-  // e.g. if email is ckc@gmail.com, user alias is ckc
-  let userAlias = socket.user.split("@")[0];
-
-  console.log(`New user - ${socket.user} - connected`);
-  redisClient.lrange('activeUsers', 0, -1, async (err, results) => {
-    // if == -1, user does not exist, add to list
-    if (results.indexOf(userAlias) == -1) {
-      await redisClient.lpush('activeUsers', userAlias);
-      results.push(userAlias);
-    }
-    
-    io.emit('refreshUserList', results);
-  });
-
-  socket.on('disconnect', async () => {
-    console.log(userAlias, 'left us');
-    await redisClient.lrem('activeUsers', 1, userAlias);  // remove user from list
-
-    redisClient.lrange('activeUsers', 0, -1, async (err, results) => {
-      io.emit('refreshUserList', results);
-    });
-  });
-
-  socket.emit('newMessage', generateMessage("Admin", "Welcome to the chat app!"));
-  socket.broadcast.emit('newMessage', generateMessage("Admin", "New user joined"));
-
-  socket.on('createMessage', (inMessage, callback) => {
-    console.log(`${socket.user}: ${inMessage.text}`)
-    io.emit('newMessage', generateMessage(userAlias, inMessage.text));
-    callback();
-  });
-
-});
+const SocketRouter = require('./router/socketRouter');
+const socketRouter = new SocketRouter(io, redisClient)
+socketRouter.router();
 
 server.listen(port, () => {
   console.log(`Server is up on ${port}`);

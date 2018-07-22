@@ -1,7 +1,7 @@
-const {generateMessage,generateLocationMessage} = require('../server/utils/message');
-const NoteService = require('../utils/PortfolioService');
-const knexConfig = require('../knexfile');
-const knex = require('knex')(knexConfig.testing);
+const {generateMessage,generateLocationMessage} = require('../utils/message');
+// const NoteService = require('../utils/PortfolioService');
+// const knexConfig = require('../knexfile');
+// const knex = require('knex')(knexConfig.development);
 
 describe('generateMessage',()=>{
     it('should generate correct message object',()=>{
