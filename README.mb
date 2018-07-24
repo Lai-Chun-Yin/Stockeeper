@@ -1,6 +1,6 @@
-# Project Title
+Stockeeper
 
-One Paragraph of project description goes here
+At Stockeeper, you get free stock quotes, up-to-date news, portfolio management resources, Hong Kong market data and social interaction that help you manage your financial life.
 
 ## Getting Started
 
@@ -8,48 +8,38 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+Install PostgreSQL, Redis, NodeJS
 
 ```
-Give examples
+sudo apt-get install postgresql postgresql-contrib
 ```
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
+Create database "stockeeper" in your local PostgreSQL environment
 
 ```
-Give the example
+sudo service postgresql start
+sudo su postgres
+createdb stockeeper
 ```
 
-And repeat
-
+Run Redis in the background
 ```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
+redis-server --daemonize yes
 ```
 
-### And coding style tests
-
-Explain what these tests test and why
+Navigate to the application's root directory. Run Knex migration and seed files to setup tables and populate stock reference data.
 
 ```
-Give an example
+knex migrate:latest
+knex seed:run
+```
+
+To start the applicaion, run:
+
+```
+node index.js
 ```
 
 ## Deployment
@@ -58,23 +48,19 @@ Add additional notes about how to deploy this on a live system
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+* [NodeJS](https://nodejs.org/) - The web framework used
+* [PostgreSQL](https://www.postgresql.org/) - Database System
+* [Redis](https://redis.io/) - in-memory data structure store
+* [JQuery](https://api.jquery.com/)
+* [Express Handlebars](https://github.com/ericf/express-handlebars)
+* [D3.js](https://d3js.org/) - JavaScript library that helps visualize data
+* [Socket.io](https://socket.io/)
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+* **CK Chan**
+* **Tommy Lai**
+* **Peter Wong**
 
 ## License
 
