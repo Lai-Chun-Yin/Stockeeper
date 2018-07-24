@@ -129,9 +129,9 @@
   }
 
   #portfolio {
-    overflow: scroll;
+    overflow: auto;
   }
 
-  #portfolio-details {
-    overflow: scroll;
+  #portfolio-details{
+    overflow: auto;
   }
