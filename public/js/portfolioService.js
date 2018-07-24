@@ -49,8 +49,40 @@ let positionTemplate = Handlebars.compile(`
 <td>{{volume}}</td>
 <td>{{costBasis}}</td>
 <td>{{mktValue}}</td>
-<td>{{pl}}</td>
+{{#ifCond pl ">" 0}}
+    <td class="fg-green text-bold">{{pl}}</td>
+{{else ifCond pl "<" 0}}
+        <td class="fg-red text-bold">{{pl}}</td>
+{{else}}
+    <td class="fg-gray text-bold">{{pl}}</td>
+{{/ifCond}}
 </tr>`);
+
+Handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {
+    switch (operator) {
+        case '==':
+            return (v1 == v2) ? options.fn(this) : options.inverse(this);
+        case '===':
+            return (v1 === v2) ? options.fn(this) : options.inverse(this);
+        case '!==':
+            return (v1 !== v2) ? options.fn(this) : options.inverse(this);
+        case '<':
+            return (v1 < v2) ? options.fn(this) : options.inverse(this);
+        case '<=':
+            return (v1 <= v2) ? options.fn(this) : options.inverse(this);
+        case '>':
+            return (v1 > v2) ? options.fn(this) : options.inverse(this);
+        case '>=':
+            return (v1 >= v2) ? options.fn(this) : options.inverse(this);
+        case '&&':
+            return (v1 && v2) ? options.fn(this) : options.inverse(this);
+        case '||':
+            return (v1 || v2) ? options.fn(this) : options.inverse(this);
+        default:
+            return options.inverse(this);
+    }
+});
+
 let transactionTemplate = Handlebars.compile(`
 <tr data-id="{{id}}">
 <td>{{symbol}}</td>
