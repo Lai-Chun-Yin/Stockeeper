@@ -1,7 +1,20 @@
-  html, h1, h2, h3, h4, h5, h6, p {
-    /* font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; */
-    color: black;
+  /* Custom Typography */
+  /* h1, h2, h3, h4, h5, h6 {
+    font-family: 'Gaegu', cursive;
   }
+
+  h1 {
+    font-size: 56px;
+  }
+
+  p {
+    font-family: 'Source Sans Pro', sans-serif;
+  }
+
+  p strong {
+    font-weight: bold;
+  } */
+
   /* Auth Form */
   .auth-form {
     position: fixed;
@@ -37,12 +50,50 @@
 
   .chat {
     display: flex;
+    /* background-color: yellow; */
   }
 
   .chat__sidebar {
     overflow-y: scroll;
     width: 10em;
-    height: 100vh;
+    height: calc(100vh - 52px);
+    margin: auto;
+    /* background-color: red; */
+    overflow: scroll;
+  }
+
+  .chat__main {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 52px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-image: url('../img/pattern.jpg');
+    /* background-color: rgba(255, 255, 0, 0.253); */
+  }
+
+  .chat__message {
+    /* background-color: rgba(53, 93, 224, 0.219); */
+    height: 100%;
+  }
+
+  .chat__footer {
+    /* background-color: blue; */
+  }
+
+  .chat__footer form {
+    /* background-color: orange; */
+    display: flex;
+    flex-direction: row;
+  }
+
+  .chat__footer input {
+    /* background-color: pink; */
+  }
+
+  .chat__footer button {
+    /* background-color: cyan; */
   }
 
   .chat ul li {
@@ -60,11 +111,11 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    text-align: center;
   }
 
   #headline p {
     display: block;
-    text-align: center;
   }
 
   #headline button {
@@ -75,4 +126,12 @@
 
   .rounded {
     border-radius: 1rem!important;
-}
+  }
+
+  #portfolio {
+    overflow: scroll;
+  }
+
+  #portfolio-details {
+    overflow: scroll;
+  }

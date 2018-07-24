@@ -1,23 +1,28 @@
 {{> metrosidebar}}
 <div class="shifted-content h-100 p-ab">
   {{> metroappbar}}
+
   <div class="chat">
-    <div class="chat__sidebar">
-      <h3>Active</h3>
-      <div id="Active">
+    {{!-- Side Bar --}}
+    <div class="chat__sidebar p-2" style="background-color: #80aabe">
+      <h3 class="text-center">Active</h3>
+      {{!-- <div id="Active"> --}}
         <ul id='activeUsers'></ul>
-      </div>
+      {{!-- </div> --}}
     </div>
 
-    <div class="chat__main">
-      <ul id='messages' class="chat__messages"></ul>
+    {{!-- Main --}}
+    <div class="chat__main p-2">
+      <div class="chat__message">
+        <ul id='messages' class="chat__messages"></ul>
+      </div>
 
       <div class="chat__footer">
         <form id="message-form">
-          <input name="message" type="text" placeholder="message" autofocus autocomplete="off"/>
-          <button>Send</button>
+          <input name="message" type="text" placeholder="message" autofocus autocomplete="off" />
+          <button class="button alert rounded ml-2">Send</button>
         </form>
-        
+
       </div>
 
     </div>
@@ -36,8 +41,8 @@
     </li>
   </script>
 -->
-  {{> metrojs}}
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="js/lib/moment.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
-  <script src="/js/chat.js"></script>
+{{> metrojs}}
+<script src="/socket.io/socket.io.js"></script>
+<script src="js/lib/moment.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+<script src="/js/chat.js"></script>

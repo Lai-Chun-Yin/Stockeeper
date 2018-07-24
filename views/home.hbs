@@ -1,29 +1,24 @@
-
-    {{> metrosidebar}}
-    <div class="shifted-content h-100 p-ab">
-        <div class="app-bar pos-absolute bg-red z-1" data-role="appbar">
-            <button class="app-bar-item c-pointer" id="sidebar-toggle-3">
-                <span class="mif-menu fg-white"></span>
-            </button>
-        </div>
-
-        <div class="container h-100 p-4">
-            <p class="h1">News</p>
-            <p class="h2">What is Lorem Ipsum?</p>
-            <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s ...
-            </p>
-        </div>
-        {{!-- Fin News --}}
-        <div class="container p-4">
-            {{!-- <div class="grid"> --}}
-                <div class="row d-flex flex-content-start flex-wrap">
-                    {{!-- Card View --}}
-                </div>
-            {{!-- </div> --}}
-        </div>
+ {{> metrosidebar}}
+<div class="shifted-content h-100 p-ab">
+    <div class="app-bar pos-absolute bg-red z-1" data-role="appbar">
+        <button class="app-bar-item c-pointer" id="sidebar-toggle-3">
+            <span class="mif-menu fg-white"></span>
+        </button>
     </div>
-    {{> metrojs}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
-    <script src="./js/newsData.js"></script>
+
+    <div class="container h-100 p-4">
+        <p class="h1">News</p>
+    </div>
+    {{!-- Fin News --}}
+    <div class="container p-4">
+        {{!--
+        <div class="grid"> --}}
+            <div class="row d-flex flex-content-start flex-wrap">
+                {{!-- Card View --}}
+            </div>
+            {{!-- </div> --}}
+    </div>
+</div>
+{{> metrojs}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+<script src="./js/newsData.js"></script>

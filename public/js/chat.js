@@ -3,8 +3,8 @@ $(function () {
 
   // var messageTemplate = $('#message-template').html();
   var templateScript = Handlebars.compile(`
-  <li class="message">
-      <div class="message__title">
+    <li class="message p-2">
+      <div class="message__title fg-red">
         <h4> {{from}}</h4>
         <span> {{createdAt}}</span>
       </div>
