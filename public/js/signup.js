@@ -11,7 +11,7 @@ $('#signup-form').on("submit", function (e) {
         e.preventDefault();
         alert("Entered password does not match with re-type.");
     }
-    if($("input[name='password']").hasClass("invalid")){
+    if($("input[name='username']").hasClass("invalid")){
         e.preventDefault();
         alert("Entered email is not valid.");
     }
