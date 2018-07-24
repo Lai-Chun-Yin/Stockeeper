@@ -74,8 +74,9 @@ $(function () {
     socket.emit('createMessage', {
       from: "User",
       text: $('[name=message]').val()
-    }, function () {
-      $('[name=message]').val("");
-    });
+    })
+    
+    $('[name=message]').val("");
+    
   });
 });

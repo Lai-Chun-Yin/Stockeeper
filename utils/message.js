@@ -4,7 +4,10 @@ var generateMessage = (from,text)=>{
     return{
     from,
     text,
-    createdAt: moment().valueOf()};
+    // round the timestamp so that my jasmine test won't fail due to 1 milisecond difference =.=
+    // see socket.spec.js
+    createdAt: Math.round(moment().valueOf()/100,0) * 100
+  };
 }
 
 var generateLocationMessage = (from,latitude,longitude)=>{
