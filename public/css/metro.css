@@ -76,6 +76,7 @@
   .chat__message {
     /* background-color: rgba(53, 93, 224, 0.219); */
     height: 100%;
+    overflow: scroll;
   }
 
   .chat__footer {
