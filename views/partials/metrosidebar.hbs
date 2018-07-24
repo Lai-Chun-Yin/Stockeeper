@@ -1,8 +1,9 @@
 <aside class="sidebar pos-fixed z-2" data-role="sidebar" data-toggle="#sidebar-toggle-3" id="sb3" data-shift=".shifted-content">
     {{!-- <div class="sidebar-header bg-red" data-image="images/sb-bg-1.jpg"> --}}
      <div class="sidebar-header bg-red">
-        <div class="avatar">
-            <img data-role="gravatar" data-email="sergey@pimenov.com.ua">
+        <div class="avatar" style="background-color: blue;">
+            {{!-- <img data-role="gravatar" src="/public/img/favicon.png"> --}}
+            <img data-role="gravatar" data-email="a@b.com" data-default="mm">
         </div>
         <span class="title fg-white">Stockeeper</span>
         <span class="subtitle fg-white"> 2018 © Accelerate Cohort 7 Group 1</span>
@@ -17,7 +18,7 @@
                 <span class="mif-search icon"></span>Search</a>
         </li>
         {{!-- <li class="divider"></li> --}}
-        <li class="stick-left">
+        {{!-- <li class="stick-left">
             <a class="dropdown-toggle" href="#">
                 <span class="mif-files-empty icon"></span>Portfolio</a>
             <ul class="d-menu" data-role="dropdown" style="display: none;">
@@ -32,6 +33,10 @@
                 </li>
                 {{/each}}
             </ul>
+        </li> --}}
+        <li class="stick-left">
+            <a href="#">
+                <span class="mif-files-empty icon"></span>Portfolio</a>
         </li>
         <li>
             <a href="chat" target="_blank">
