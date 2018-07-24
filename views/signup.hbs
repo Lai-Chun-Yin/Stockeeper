@@ -28,14 +28,15 @@
                 </div>
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" name="password" placeholder="Enter email" data-validate="required" />
+                    <input type="password" name="password" placeholder="Enter password" data-validate="required" />
                     <span class="invalid_feedback">
                         Setting up password is required.
                     </span>
                 </div>
                 <div class="form-group">
                     <label>Retype password</label>
-                    <input type="password" name="retype-password" data-validate="required compare=password" />
+                    <input type="password" name="retype-password" 
+                    placeholder="Retype password" data-validate="required compare=password" />
                     <span class="invalid_feedback">
                         Retyped password does not match the first entry.
                     </span>
