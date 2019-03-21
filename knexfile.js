@@ -1,13 +1,15 @@
 // Update with your config settings.
-require('dotenv').config();
+// require('dotenv').config();
 module.exports = {
   
   development: {
     client: 'postgres',
     connection: {
-      database: process.env.DB_NAME,
-      user: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD
+      user: process.env.PGUSER,
+      host: process.env.PGHOST,
+      database: process.env.PGDATABASE,
+      password: process.env.PGPASSWORD,
+      port: process.env.PGPORT
     },
     pool: {
       min: 2,
@@ -21,9 +23,11 @@ module.exports = {
   staging: {
     client: 'postgres',
     connection: {
-      database: process.env.DB_NAME,
-      user: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD
+      user: process.env.PGUSER,
+      host: process.env.PGHOST,
+      database: process.env.PGDATABASE,
+      password: process.env.PGPASSWORD,
+      port: process.env.PGPORT
     },
     pool: {
       min: 2,
@@ -37,9 +41,11 @@ module.exports = {
   production: {
     client: 'postgres',
     connection: {
-      database: process.env.DB_NAME,
-      user: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD
+      user: process.env.PGUSER,
+      host: process.env.PGHOST,
+      database: process.env.PGDATABASE,
+      password: process.env.PGPASSWORD,
+      port: process.env.PGPORT
     },
     pool: {
       min: 2,

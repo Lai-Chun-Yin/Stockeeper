@@ -1,0 +1,29 @@
+sudo: required
+services: 
+  - docker
+env:
+  global:
+    # to store the current GIT SHA globally for docker image versioning on deploy.sh
+    - SHA=$(git rev-parse HEAD)
+    # to disable Google Cloud SDK prompt that requires user input
+    - CLOUDSDK_CORE_DISABLE_PROMPTS=1
+before_install:
+  # add this line after encrypting the Google service-account.json
+  - openssl aes-256-cbc -K $encrypted_0c35eebf403c_key -iv $encrypted_0c35eebf403c_iv -in stockeeper-service-account.json.enc -out stockeeper-service-account.json -d
+  # to install Google Cloud SDK and kubectl
+  - curl https://sdk.cloud.google.com | bash > /dev/null;
+  - source $HOME/google-cloud-sdk/path.bash.inc
+  # input service account credentials
+  - gcloud auth activate-service-account --key-file stockeeper-service-account.json
+  # login into Docker CLI (the ENV var are set on Travise CI)
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker build -t tommylcy/sk-website -f ./Dockerfile .
+
+script:
+
+deploy:
+  # no provider for k8 so it needs to be handled by our script
+  provider: script
+  script: bash ./deploy.sh
+  on:
+    branch: master

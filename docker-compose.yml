@@ -1,0 +1,47 @@
+version: '3.1'
+services:
+  postgres:
+    image: 'postgres:latest'
+    volumes:
+      - db-data:/var/lib/postgresql/data
+  redis:
+    image: 'redis:latest'
+  nginx:
+    restart: always
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    depends_on:
+      - website
+    ports:
+      - '8080:80'
+  website:
+    build: ./
+    volumes:
+      - /app/node_modules
+      - .:/app
+    stdin_open: true
+    tty: true
+    environment:
+      - DB_NAME=postgres
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres_password
+      - PGUSER=postgres
+      - PGHOST=postgres
+      - PGDATABASE=postgres
+      - PGPASSWORD=postgres_password
+      - PGPORT=5432
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - FACEBOOK_ID=484882615287658
+      - FACEBOOK_CLIENT_SECRET=a226d61690695a06c47bfc02496671d5
+      - GOOGLE_PLUS_ID=1083373682348-lovat9ifo7f45s984aosr8go454hinr5.apps.googleusercontent.com
+      - GOOGLE_CLIENT_SECRET=mv2rrEugC1R5ld0hIpAGktYo
+    command: >
+      sh -c "npm install knex -g &&
+            knex migrate:latest &&
+            knex seed:run &&
+            npm run start"
+
+volumes:
+  db-data:

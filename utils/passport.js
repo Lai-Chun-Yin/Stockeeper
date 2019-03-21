@@ -7,9 +7,9 @@ require('dotenv').config();
 const knex = require('knex')({
     client: 'postgres',
     connection: {
-        database: process.env.DB_NAME,
-        user: process.env.DB_USERNAME,
-        password: process.env.DB_PASSWORD
+        database: process.env.PGDATABASE,
+        user: process.env.PGUSER,
+        password: process.env.PGPASSWORD
     }
 });
 

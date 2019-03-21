@@ -1,0 +1,66 @@
+version: '3.1'
+services:
+  postgres:
+    image: 'postgres:latest'
+    volumes:
+      - db-data:/var/lib/postgresql/data
+  redis:
+    image: 'redis:latest'
+  nginx:
+    restart: always
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    image: tommylcy/sk-nginx
+    deploy:
+      mode: global
+      placement:
+        constraints:
+          - node.role == manager
+    depends_on:
+      - website
+    ports:
+      - '80:80'
+  website:
+    build: ./
+    image: tommylcy/sk-website
+    stdin_open: true
+    tty: true
+    secrets:
+      - facebook_id
+      - facebook_client_secret
+      - google_plus_id
+      - google_client_secret
+      - pgpassword
+    environment:
+      PGPASSWORD: /run/secrets/psql_password
+      PGUSER: postgres
+      PGHOST: postgres
+      PGDATABASE: postgres
+      PGPORT: 5432
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      FACEBOOK_ID: /run/secrets/facebook_id
+      FACEBOOK_CLIENT_SECRET: /run/secrets/facebook_client_secret
+      GOOGLE_PLUS_ID: /run/secrets/google_plus_id
+      GOOGLE_CLIENT_SECRET: /run/secrets/google_client_secret
+    command: >
+      sh -c "npm install knex -g &&
+            knex migrate:latest &&
+            knex seed:run &&
+            npm run start"
+
+volumes:
+  db-data:
+
+secrets:
+  facebook_id:
+    external: true
+  facebook_client_secret:
+    external: true
+  google_plus_id:
+    external: true
+  google_client_secret:
+    external: true
+  pgpassword:
+    external: true
