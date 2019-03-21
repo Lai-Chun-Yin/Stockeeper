@@ -1,6 +1,9 @@
 sudo: required
 services: 
   - docker
+language: node_js
+node_js:
+  - "6"
 env:
   global:
     # to store the current GIT SHA globally for docker image versioning on deploy.sh
