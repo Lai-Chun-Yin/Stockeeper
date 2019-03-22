@@ -11,7 +11,7 @@ services:
     build:
       dockerfile: Dockerfile.dev
       context: ./nginx
-    image: tommylcy/sk-nginx
+    image: asia.gcr.io/stockeeper-210714/sk-nginx
     deploy:
       mode: global
       placement:
@@ -23,7 +23,7 @@ services:
       - '80:80'
   website:
     build: ./
-    image: tommylcy/sk-website
+    image: asia.gcr.io/stockeeper-210714/sk-website
     stdin_open: true
     tty: true
     secrets:
