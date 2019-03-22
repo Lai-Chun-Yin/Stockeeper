@@ -25,7 +25,6 @@ before_install:
 script:
 
 deploy:
-  # no provider for k8 so it needs to be handled by our script
   provider: script
   script: bash ./deploy.sh
   on:
