@@ -49,8 +49,9 @@ services:
       - redis
     command: >
       sh -c "npm install knex -g &&
-            knex migrate:latest &&
+            knex migrate:asset-table &&
             knex seed:run &&
+            knex migrate:latest &&
             npm run start"
 
 volumes:
