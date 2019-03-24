@@ -1,5 +1,7 @@
 docker build -t asia.gcr.io/stockeeper-210714/sk-nginx -f ./nginx/Dockerfile.dev ./nginx
 docker build -t asia.gcr.io/stockeeper-210714/sk-website -f ./Dockerfile .
+docker build -t asia.gcr.io/stockeeper-210714/sk-nginx:$SHA -f ./nginx/Dockerfile.dev ./nginx
+docker build -t asia.gcr.io/stockeeper-210714/sk-website:$SHA -f ./Dockerfile .
 docker push asia.gcr.io/stockeeper-210714/sk-nginx:latest
 docker push asia.gcr.io/stockeeper-210714/sk-website:latest
 docker push asia.gcr.io/stockeeper-210714/sk-nginx:$SHA
