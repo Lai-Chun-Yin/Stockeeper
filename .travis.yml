@@ -10,6 +10,9 @@ env:
     - SHA=$(git rev-parse HEAD)
     # to disable Google Cloud SDK prompt that requires user input
     - CLOUDSDK_CORE_DISABLE_PROMPTS=1
+install:
+  - git clone https://github.com/$TRAVIS_REPO_SLUG.git $TRAVIS_REPO_SLUG
+  - cd $TRAVIS_REPO_SLUG
 before_script:
   # add this line after encrypting the Google service-account.json
   - openssl aes-256-cbc -K $encrypted_0c35eebf403c_key -iv $encrypted_0c35eebf403c_iv -in stockeeper-service-account.json.enc -out stockeeper-service-account.json -d
@@ -21,7 +24,7 @@ before_script:
   - gcloud auth configure-docker
   # login into Docker CLI (the ENV var are set on Travise CI)
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker build -t asia.gcr.io/stockeeper-210714/sk-website -f ./Stockeeper/Dockerfile ./Stockeeper
+  - docker build -t asia.gcr.io/stockeeper-210714/sk-website -f ./Dockerfile .
 
 script:
 
