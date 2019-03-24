@@ -25,7 +25,6 @@ before_script:
   - gcloud auth configure-docker
   # login into Docker CLI (the ENV var are set on Travise CI)
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker build -t sk-website-test -f ./Dockerfile.test .
 
 script:
 
