@@ -50,7 +50,6 @@ services:
     command: >
       sh -c "npm install knex -g &&
             knex migrate:latest &&
-            knex seed:run &&
             npm run start"
 
 volumes:
