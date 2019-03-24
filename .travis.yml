@@ -10,7 +10,7 @@ env:
     - SHA=$(git rev-parse HEAD)
     # to disable Google Cloud SDK prompt that requires user input
     - CLOUDSDK_CORE_DISABLE_PROMPTS=1
-before_install:
+before_script:
   # add this line after encrypting the Google service-account.json
   - openssl aes-256-cbc -K $encrypted_0c35eebf403c_key -iv $encrypted_0c35eebf403c_iv -in stockeeper-service-account.json.enc -out stockeeper-service-account.json -d
   # to install Google Cloud SDK and kubectl
