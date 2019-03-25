@@ -24,7 +24,7 @@ before_script:
   - gcloud auth activate-service-account --key-file stockeeper-service-account.json
   - gcloud auth configure-docker
   # login into Docker CLI (the ENV var are set on Travise CI)
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin asia.gcr.io
 
 script:
 
